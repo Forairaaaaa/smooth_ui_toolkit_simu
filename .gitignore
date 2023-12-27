@@ -1,3 +1,4 @@
 build
 .vscode
 .cache
+dependencies/smooth_ui_toolkit

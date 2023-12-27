@@ -16,6 +16,7 @@
 #else
 #include "hal/hal_rachel/hal_rachel.h"
 #endif
+#include "smooth_ui_toolkit_test/smooth_ui_toolkit_test.h"
 
 
 void SIMU_PROJECT::Setup()
@@ -43,10 +44,7 @@ int Game_random(int low, int high)
 
 void SIMU_PROJECT::Loop()
 {
-    HAL::GetCanvas()->fillSmoothCircle(
-        Game_random(0, HAL::GetCanvas()->width()), Game_random(0, HAL::GetCanvas()->height()),
-        Game_random(1, 24), Game_random(TFT_BLACK, TFT_WHITE));
-    HAL::CanvasUpdate();
+    smooth_ui_toolkit_test();
 }
 
 

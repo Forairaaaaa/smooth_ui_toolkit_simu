@@ -7,8 +7,8 @@ add_definitions(-DLGFX_SDL)
 
 # Simu project
 file(GLOB_RECURSE SIMU_PROJECT_SRCS
-    simu_project/apps/*.c
-    simu_project/apps/*.cpp
+    simu_project/smooth_ui_toolkit_test/*.c
+    simu_project/smooth_ui_toolkit_test/*.cpp
     simu_project/hal/hal_simulator/*.c
     simu_project/hal/hal_simulator/*.cpp
 )
@@ -20,6 +20,9 @@ set(SIMU_PROJECT_SRCS_EXTRA
 
 # Mooncake 
 add_subdirectory("dependencies/mooncake")
+
+# Smooth ui toolkit 
+add_subdirectory("dependencies/smooth_ui_toolkit")
 
 # ビルド対象にするファイルを指定する;
 # LovyanGFXのあるパスと位置関係を変えた場合は相対パス記述を環境に合わせて調整すること;
@@ -46,7 +49,7 @@ IF (CMAKE_SYSTEM_NAME MATCHES "Linux")
 # SDL2_INCLUDE_DIRS と SDL2_LIBRARIES を事前に設定しておく;
     find_package(SDL2 REQUIRED SDL2)
     include_directories(${SDL2_INCLUDE_DIRS})
-    target_link_libraries(LGFX_SDL -lpthread ${SDL2_LIBRARIES} mooncake)
+    target_link_libraries(LGFX_SDL -lpthread ${SDL2_LIBRARIES} mooncake smooth_ui_toolkit)
 
 ELSEIF (CMAKE_SYSTEM_NAME MATCHES "Windows")
 
@@ -55,7 +58,7 @@ ELSEIF (CMAKE_SYSTEM_NAME MATCHES "Windows")
     target_include_directories(LGFX_SDL PUBLIC "C:/SDL2/include")
 
 # SDL2を配置したパス内の.libファイルのパスを指定する;
-    target_link_libraries(LGFX_SDL PUBLIC "C:/SDL2/lib/x64/SDL2.lib" mooncake)
+    target_link_libraries(LGFX_SDL PUBLIC "C:/SDL2/lib/x64/SDL2.lib" mooncake smooth_ui_toolkit)
 
 
     add_compile_options("$<$<C_COMPILER_ID:MSVC>:/utf-8>")
@@ -66,7 +69,7 @@ ELSEIF (CMAKE_SYSTEM_NAME MATCHES "Darwin")
 
 # MacOS(Darwin)環境の場合;
     find_package(SDL2 REQUIRED COMPONENTS SDL2)
-    target_link_libraries(LGFX_SDL PRIVATE SDL2::SDL2)
+    target_link_libraries(LGFX_SDL PRIVATE SDL2::SDL2 mooncake smooth_ui_toolkit)
 
 ENDIF ()
 
