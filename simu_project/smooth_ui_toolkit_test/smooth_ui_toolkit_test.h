@@ -9,11 +9,11 @@
  * 
  */
 #pragma once
-
-
 void simple_menu_test();
+void dragger_test();
 
 void smooth_ui_toolkit_test()
 {
-    simple_menu_test();
+    // simple_menu_test();
+    dragger_test();
 }
