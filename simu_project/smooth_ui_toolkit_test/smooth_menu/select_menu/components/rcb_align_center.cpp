@@ -17,9 +17,9 @@ using namespace SYSTEM::UI;
 
 
 void SelectMenuRenderCb_AlignCenter::renderCallback(
-    const std::vector<SMOOTH_MENU::Item_t*>& menuItemList,
-    const SMOOTH_MENU::RenderAttribute_t& selector,
-    const SMOOTH_MENU::RenderAttribute_t& camera
+    const std::vector<SMOOTH_UI_TK::Item_t*>& menuItemList,
+    const SMOOTH_UI_TK::RenderAttribute_t& selector,
+    const SMOOTH_UI_TK::RenderAttribute_t& camera
 )
 {
     // Clear 

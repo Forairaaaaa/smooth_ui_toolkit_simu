@@ -52,8 +52,8 @@ namespace SYSTEM::UI
     private:
         struct Data_t
         {
-            SMOOTH_MENU::Simple_Menu* menu = nullptr;
-            SMOOTH_MENU::SimpleMenuCallback_t* render_cb = nullptr;
+            SMOOTH_UI_TK::Simple_Menu* menu = nullptr;
+            SMOOTH_UI_TK::SimpleMenuCallback_t* render_cb = nullptr;
             uint32_t menu_update_count = 0;
             bool menu_wait_button_released = false;
         };

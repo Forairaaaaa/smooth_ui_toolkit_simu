@@ -41,13 +41,13 @@ void _wraped_select_menu_test()
  * @brief Raw api test 
  * 
  */
-class SelectMenuRenderCb_RawApiTest : public SMOOTH_MENU::SimpleMenuCallback_t
+class SelectMenuRenderCb_RawApiTest : public SMOOTH_UI_TK::SimpleMenuCallback_t
 {
 public:
     void renderCallback(
-        const std::vector<SMOOTH_MENU::Item_t*>& menuItemList,
-        const SMOOTH_MENU::RenderAttribute_t& selector,
-        const SMOOTH_MENU::RenderAttribute_t& camera
+        const std::vector<SMOOTH_UI_TK::Item_t*>& menuItemList,
+        const SMOOTH_UI_TK::RenderAttribute_t& selector,
+        const SMOOTH_UI_TK::RenderAttribute_t& camera
     ) override
     {
         // Clear 
@@ -83,7 +83,7 @@ public:
 void _raw_api_test()
 {
     // Create a menu 
-    SMOOTH_MENU::Simple_Menu simple_menu(HAL::GetCanvas()->width(), HAL::GetCanvas()->height());
+    SMOOTH_UI_TK::Simple_Menu simple_menu(HAL::GetCanvas()->width(), HAL::GetCanvas()->height());
 
     // Config menu (Optional)
     simple_menu.setFirstItem(0);
