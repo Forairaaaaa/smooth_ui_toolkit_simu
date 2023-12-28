@@ -11,9 +11,12 @@
 #pragma once
 void simple_menu_test();
 void dragger_test();
+void anim_point_2d_test();
 
-void smooth_ui_toolkit_test()
+
+inline void smooth_ui_toolkit_test()
 {
     // simple_menu_test();
-    dragger_test();
+    anim_point_2d_test();
+    // dragger_test();
 }

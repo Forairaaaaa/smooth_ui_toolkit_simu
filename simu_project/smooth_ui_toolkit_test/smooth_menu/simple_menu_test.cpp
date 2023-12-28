@@ -11,6 +11,7 @@
 #include <smooth_ui_toolkit.h>
 #include "../../hal/hal.h"
 #include <mooncake.h>
+#include "lv_anim/lv_anim.h"
 #include "select_menu/select_menu.h"
 
 
@@ -96,8 +97,8 @@ void _raw_api_test()
     }
     {
         auto cfg = simple_menu.getSelector()->config();
-        cfg.animPath_y = LVGL::ease_out;
-        cfg.animTime_y = 100;
+        cfg.animPath_y = LVGL::overshoot;
+        cfg.animTime_y = 200;
         simple_menu.getSelector()->config(cfg);
     }
     {
