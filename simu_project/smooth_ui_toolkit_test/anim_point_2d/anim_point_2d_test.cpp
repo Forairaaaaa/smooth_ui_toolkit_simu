@@ -30,12 +30,12 @@ void anim_point_2d_test()
     anim_point.moveToWithNoAnim(20, 20);
 
 
-    std::vector<Point2D_Int_t> point_list = {
-        Point2D_Int_t(HAL::GetCanvas()->width() / 2, HAL::GetCanvas()->height() / 2),
-        Point2D_Int_t(HAL::GetCanvas()->width() / 5, HAL::GetCanvas()->height() / 5),
-        Point2D_Int_t(HAL::GetCanvas()->width() / 3, HAL::GetCanvas()->height() / 4),
-        Point2D_Int_t(HAL::GetCanvas()->width() / 5 * 4, HAL::GetCanvas()->height() / 4 * 3),
-        Point2D_Int_t(HAL::GetCanvas()->width() / 10 * 8, HAL::GetCanvas()->height() / 3),
+    std::vector<Vector2D_t> point_list = {
+        Vector2D_t(HAL::GetCanvas()->width() / 2, HAL::GetCanvas()->height() / 2),
+        Vector2D_t(HAL::GetCanvas()->width() / 5, HAL::GetCanvas()->height() / 5),
+        Vector2D_t(HAL::GetCanvas()->width() / 3, HAL::GetCanvas()->height() / 4),
+        Vector2D_t(HAL::GetCanvas()->width() / 5 * 4, HAL::GetCanvas()->height() / 4 * 3),
+        Vector2D_t(HAL::GetCanvas()->width() / 10 * 8, HAL::GetCanvas()->height() / 3),
     };
 
     for (auto i : point_list)
