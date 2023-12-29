@@ -42,18 +42,26 @@ void cubic_bezier_test()
     for (int t = 0; t < EasingPath::maxT; t++)
     {
         // Get value 
+        // auto b = EasingPath::linear(t);
         // auto b = EasingPath::easeInQuad(t);
-        auto b = EasingPath::easeOutQuad(t);
+        // auto b = EasingPath::easeOutQuad(t);
+        // auto b = EasingPath::easeInOutQuad(t);
+        // auto b = EasingPath::easeInCubic(t);
+        // auto b = EasingPath::easeOutCubic(t);
+        // auto b = EasingPath::easeInOutCubic(t);
+        // auto b = EasingPath::easeInQuart(t);
+        // auto b = EasingPath::easeOutQuart(t);
+        // auto b = EasingPath::easeInOutQuart(t);
+        // auto b = EasingPath::easeInQuint(t);
+        // auto b = EasingPath::easeOutQuint(t);
+        // auto b = EasingPath::easeInOutQuint(t);
+        // auto b = EasingPath::easeInSine(t);
+        // auto b = EasingPath::easeOutSine(t);
+        auto b = EasingPath::easeInOutSine(t);
 
 
-        spdlog::info("b({}) = {}", t, b);
+        // spdlog::info("b({}) = {}", t, b);
         HAL::GetCanvas()->fillSmoothCircle(t / scale + x_offset, _mirro_y(b / scale + y_offset), 2, TFT_BLACK);
     }
     HAL::CanvasUpdate();
-    HAL::Delay(5000);
-
-
-
-
-    while (1);
 }
