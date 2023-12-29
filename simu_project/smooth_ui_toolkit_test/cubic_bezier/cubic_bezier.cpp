@@ -10,6 +10,8 @@
  */
 #include <smooth_ui_toolkit.h>
 #include "../../hal/hal.h"
+#include "core/easing_path/easing_path.h"
+#include "lgfx/v1/misc/enum.hpp"
 #include "spdlog/spdlog.h"
 #include <mooncake.h>
 
@@ -28,22 +30,30 @@ void cubic_bezier_test()
 {
     spdlog::info("cubic bezier test");
 
-    int scale = 5;
-    int x_offset = (HAL::GetCanvas()->width() - 1024 / scale) / 2;
-    int y_offset = (HAL::GetCanvas()->height() - 1024 / scale) / 2;
+
+    int scale = 3;
+    int x_offset = (HAL::GetCanvas()->width() - EasingPath::maxT / scale) / 2;
+    int y_offset = (HAL::GetCanvas()->height() - EasingPath::maxT / scale) / 4;
+
 
     // Draw path curve 
-    HAL::GetCanvas()->fillScreen(TFT_BLACK);
-    HAL::GetCanvas()->drawRect(x_offset, _mirro_y(y_offset), 1024 / scale, -(1024 / scale), TFT_DARKGRAY);
-    for (int t = 0; t < 1024; t++)
+    HAL::GetCanvas()->fillScreen(TFT_WHITE);
+    HAL::GetCanvas()->drawRect(x_offset, _mirro_y(y_offset), EasingPath::maxT / scale, -(EasingPath::maxT / scale), TFT_DARKGRAY);
+    for (int t = 0; t < EasingPath::maxT; t++)
     {
-        // auto b = EasingPath::easeOutBack(t);
-        // auto b = EasingPath::easeInOutQuint(t);
-        auto b = EasingPath::easeInOutCubic(t);
+        // Get value 
+        // auto b = EasingPath::easeInQuad(t);
+        auto b = EasingPath::easeOutQuad(t);
 
-        spdlog::info("b({}) = {} scale: b({}) = {}", t, b, t / scale, b / scale);
-        HAL::GetCanvas()->drawPixel(t / scale + x_offset, _mirro_y(b / scale + y_offset), TFT_YELLOW);
+
+        spdlog::info("b({}) = {}", t, b);
+        HAL::GetCanvas()->fillSmoothCircle(t / scale + x_offset, _mirro_y(b / scale + y_offset), 2, TFT_BLACK);
     }
     HAL::CanvasUpdate();
     HAL::Delay(5000);
+
+
+
+
+    while (1);
 }

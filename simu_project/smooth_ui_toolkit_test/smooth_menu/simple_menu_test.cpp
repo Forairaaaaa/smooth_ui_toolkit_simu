@@ -11,7 +11,6 @@
 #include <smooth_ui_toolkit.h>
 #include "../../hal/hal.h"
 #include <mooncake.h>
-#include "lv_anim/lv_anim.h"
 #include "select_menu/select_menu.h"
 
 

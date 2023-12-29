@@ -25,7 +25,7 @@ void SIMU_PROJECT::Setup()
 
     // HAL injection 
     #ifndef ESP_PLATFORM
-    HAL::Inject(new HAL_Simulator(240, 240));
+    HAL::Inject(new HAL_Simulator(480, 480));
     #else
     HAL::Inject(new HAL_Rachel);
     #endif
