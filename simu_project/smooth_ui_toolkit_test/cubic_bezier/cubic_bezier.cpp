@@ -32,8 +32,8 @@ void cubic_bezier_test()
 
 
     int scale = 3;
-    int x_offset = (HAL::GetCanvas()->width() - EasingPath::maxT / scale) / 2;
-    int y_offset = (HAL::GetCanvas()->height() - EasingPath::maxT / scale) / 4;
+    int x_offset = (HAL::GetCanvas()->width() - EasingPath::maxT / scale) / 4;
+    int y_offset = (HAL::GetCanvas()->height() - EasingPath::maxT / scale) / 2;
 
 
     // Draw path curve 
@@ -57,7 +57,22 @@ void cubic_bezier_test()
         // auto b = EasingPath::easeInOutQuint(t);
         // auto b = EasingPath::easeInSine(t);
         // auto b = EasingPath::easeOutSine(t);
-        auto b = EasingPath::easeInOutSine(t);
+        // auto b = EasingPath::easeInOutSine(t);
+        // auto b = EasingPath::easeInExpo(t);
+        // auto b = EasingPath::easeOutExpo(t);
+        // auto b = EasingPath::easeInOutExpo(t);
+        // auto b = EasingPath::easeInCirc(t);
+        // auto b = EasingPath::easeOutCirc(t);
+        // auto b = EasingPath::easeInOutCirc(t);
+        // auto b = EasingPath::easeInBack(t);
+        // auto b = EasingPath::easeOutBack(t);
+        // auto b = EasingPath::easeInOutBack(t);
+        // auto b = EasingPath::easeInElastic(t);
+        // auto b = EasingPath::easeOutElastic(t);
+        // auto b = EasingPath::easeInOutElastic(t);
+        // auto b = EasingPath::easeInBounce(t);
+        // auto b = EasingPath::easeOutBounce(t);
+        auto b = EasingPath::easeInOutBounce(t);
 
 
         // spdlog::info("b({}) = {}", t, b);
