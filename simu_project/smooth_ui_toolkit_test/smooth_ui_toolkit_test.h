@@ -20,6 +20,6 @@ inline void smooth_ui_toolkit_test()
 {
     // simple_menu_test();
 
-    // easing_path_test();
-    transition_test();
+    easing_path_test();
+    // transition_test();
 }
