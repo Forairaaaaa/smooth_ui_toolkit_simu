@@ -19,18 +19,16 @@
 using namespace SmoothUIToolKit;
 
 
+
 // Mirro the y direction 
-int _mirro_y(int y)
+static int _mirro_y(int y)
 {
     return HAL::GetCanvas()->height() - y;
 }
 
 
-void easing_path_test()
+static void _simple_test()
 {
-    spdlog::info("cubic bezier test");
-
-
     int scale = 3;
     int x_offset = (HAL::GetCanvas()->width() - EasingPath::maxT / scale) / 4;
     int y_offset = (HAL::GetCanvas()->height() - EasingPath::maxT / scale) / 2;
@@ -79,4 +77,13 @@ void easing_path_test()
         HAL::GetCanvas()->fillSmoothCircle(t / scale + x_offset, _mirro_y(b / scale + y_offset), 2, TFT_BLACK);
     }
     HAL::CanvasUpdate();
+}
+
+
+
+void easing_path_test()
+{
+    spdlog::info("cubic bezier test");
+
+    _simple_test();
 }
