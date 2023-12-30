@@ -14,7 +14,7 @@
 #ifndef ESP_PLATFORM
 #include "hal/hal_simulator/hal_simulator.hpp"
 #else
-#include "hal/hal_rachel/hal_rachel.h"
+#include "hal/hal_core2/hal_core2.hpp"
 #endif
 #include "smooth_ui_toolkit_test/smooth_ui_toolkit_test.h"
 
@@ -26,8 +26,9 @@ void SIMU_PROJECT::Setup()
     // HAL injection 
     #ifndef ESP_PLATFORM
     HAL::Inject(new HAL_Simulator(640, 640));
+    // HAL::Inject(new HAL_Simulator(320, 240));
     #else
-    HAL::Inject(new HAL_Rachel);
+    HAL::Inject(new HAL_Core2());
     #endif
 }
 
@@ -44,7 +45,10 @@ int Game_random(int low, int high)
 
 void SIMU_PROJECT::Loop()
 {
-    smooth_ui_toolkit_test();
+    // easing_path_simple_test();
+    easing_path_play_with_transition();
+    // transition_simple_test();
+    // transition_user_data_test();
 }
 
 

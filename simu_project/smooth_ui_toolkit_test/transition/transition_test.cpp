@@ -21,7 +21,7 @@ using namespace SmoothUIToolKit;
 
 
 
-static void _simple_test()
+void transition_simple_test()
 {
     Transition t1;
 
@@ -99,7 +99,7 @@ static void _render_callback(Transition* transition)
 }
 
 
-static void _user_data_test()
+void transition_user_data_test()
 {
     auto x_start = HAL::GetCanvas()->width() / 6;
     auto x_end = HAL::GetCanvas()->width() / 6 * 5;
@@ -140,16 +140,9 @@ static void _user_data_test()
         {
             t.update(HAL::Millis());
         }
+        #ifdef ESP_PLATFORM
+        HAL::RenderFpsPanel();
+        #endif
         HAL::CanvasUpdate();
     }
-}
-
-
-
-void transition_test()
-{
-    spdlog::info("transition test");
-
-    // _simple_test();
-    _user_data_test();
 }

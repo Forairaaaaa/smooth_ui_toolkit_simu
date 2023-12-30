@@ -9,17 +9,12 @@
  * 
  */
 #pragma once
-void simple_menu_test();
-void dragger_test();
-void anim_point_2d_test();
-void easing_path_test();
-void transition_test();
+// void simple_menu_test();
+// void dragger_test();
+// void anim_point_2d_test();
 
+void easing_path_simple_test();
+void easing_path_play_with_transition();
+void transition_simple_test();
+void transition_user_data_test();
 
-inline void smooth_ui_toolkit_test()
-{
-    // simple_menu_test();
-
-    easing_path_test();
-    // transition_test();
-}

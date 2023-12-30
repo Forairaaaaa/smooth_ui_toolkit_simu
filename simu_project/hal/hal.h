@@ -21,8 +21,9 @@
 #include <string>
 #include "lgfx_fx/lgfx_fx.h"
 #else
-#include <LovyanGFX.hpp>
+// #include <LovyanGFX.hpp>
 #include "lgfx_fx/lgfx_fx.h"
+#include <M5GFX.h>
 #endif
 
 

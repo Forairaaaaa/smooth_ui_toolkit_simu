@@ -9,7 +9,11 @@
  * 
  */
 #pragma once
+#ifndef ESP_PLATFORM
 #include <LovyanGFX.hpp>
+#else
+#include <M5GFX.h>
+#endif
 
 
 /**

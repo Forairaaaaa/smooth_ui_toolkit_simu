@@ -27,7 +27,7 @@ static int _mirro_y(int y)
 }
 
 
-static void _simple_test()
+void easing_path_simple_test()
 {
     int scale = 3;
     int x_offset = (HAL::GetCanvas()->width() - EasingPath::maxT / scale) / 4;
@@ -113,7 +113,7 @@ static void _render_callback(Transition* transition)
 }
 
 
-static void _play_with_transition()
+void easing_path_play_with_transition()
 {
     int scale = EasingPath::maxT / (HAL::GetCanvas()->height() / 2);
     int curve_x_offset = (HAL::GetCanvas()->width() - EasingPath::maxT / scale) / 4;
@@ -186,7 +186,8 @@ static void _play_with_transition()
 
         if (changed)
         {
-            spdlog::info("new {}", current_t);
+            // spdlog::info("new {}", current_t);
+            // spdlog::info("new {}", current_t);
             changed = false;
             t_list[current_t].reset();
             t_list[current_t].start(HAL::Millis());
@@ -203,20 +204,17 @@ static void _play_with_transition()
         for (int t = 0; t < EasingPath::maxT; t++)
         {
             auto b = t_list[current_t].getTransitionPath()(t);
+            #ifndef ESP_PLATFORM
             HAL::GetCanvas()->fillSmoothCircle(t / scale + curve_x_offset, _mirro_y(b / scale + curve_y_offset), 2, TFT_BLACK);
+            #else
+            HAL::GetCanvas()->fillRect(t / scale + curve_x_offset, _mirro_y(b / scale + curve_y_offset), 2, 2, TFT_BLACK);
+            #endif
         }
 
+        #ifdef ESP_PLATFORM
+        HAL::RenderFpsPanel();
+        #endif
         HAL::CanvasUpdate();
     }
 
-}
-
-
-
-void easing_path_test()
-{
-    spdlog::info("easing path test");
-
-    // _simple_test();
-    _play_with_transition();
 }
