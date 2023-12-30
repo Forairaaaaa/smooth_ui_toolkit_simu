@@ -9,6 +9,9 @@
  * 
  */
 #pragma once
+#include "lgfx/v1/Touch.hpp"
+#include "spdlog/spdlog.h"
+#include <cstdint>
 #ifndef ESP_PLATFORM
 #include "lgfx/v1/LGFX_Sprite.hpp"
 #include "lgfx/v1/platforms/sdl/common.hpp"
@@ -67,26 +70,26 @@ public:
 
     void loadTextFont24() override
     {
-        // https://github.com/Bodmer/TFT_eSPI/tree/master/Tools/Create_Smooth_Font/Create_font
-        // http://lvgl.100ask.net/8.1/tools/fonts-zh-source.html#id7
-        // https://r12a.github.io/app-conversion/
-        _canvas->loadFont("../rachel/apps/assets/fonts/zpix_cn_24.vlw");
-        _canvas->setTextSize(1);
+        // // https://github.com/Bodmer/TFT_eSPI/tree/master/Tools/Create_Smooth_Font/Create_font
+        // // http://lvgl.100ask.net/8.1/tools/fonts-zh-source.html#id7
+        // // https://r12a.github.io/app-conversion/
+        // _canvas->loadFont("../rachel/apps/assets/fonts/zpix_cn_24.vlw");
+        // _canvas->setTextSize(1);
     }
 
 
     void loadTextFont16() override
     {
-        _canvas->setFont(&fonts::efontCN_16);
-        _canvas->setTextSize(1);
+        // _canvas->setFont(&fonts::efontCN_16);
+        // _canvas->setTextSize(1);
     }
 
 
     void loadLauncherFont24() override
     {
-        // loadTextFont24();
-        _canvas->setFont(&fonts::efontCN_24);
-        _canvas->setTextSize(1);
+        // // loadTextFont24();
+        // _canvas->setFont(&fonts::efontCN_24);
+        // _canvas->setTextSize(1);
     }
 
 
@@ -110,6 +113,23 @@ public:
             return !lgfx::gpio_in(38);
 
         return false;
+    }
+
+
+    bool isTouching() override
+    {
+        lgfx::touch_point_t tp;
+        _display->getTouch(&tp);
+        // spdlog::info("{} {} {}", tp.x, tp.y, tp.size);
+        return tp.size != 0;
+    }
+
+
+    TOUCH::Point_t getTouchPoint() override
+    {
+        lgfx::touch_point_t tp;
+        _display->getTouch(&tp);
+        return {tp.x, tp.y};
     }
 };
 #endif

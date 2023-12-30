@@ -17,4 +17,6 @@ void easing_path_simple_test();
 void easing_path_play_with_transition();
 void transition_simple_test();
 void transition_user_data_test();
+void smooth_point_simple_test();
+void smooth_point_bubble_pool_test();
 

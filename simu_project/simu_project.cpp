@@ -33,22 +33,27 @@ void SIMU_PROJECT::Setup()
 }
 
 
-#include <random>
-std::random_device rd;
-std::mt19937 gen(rd());
-int Game_random(int low, int high) 
-{
-    std::uniform_int_distribution<> dist(low, high);
-    return dist(gen);
-}
+// #include <random>
+// std::random_device rd;
+// std::mt19937 gen(rd());
+// int Game_random(int low, int high) 
+// {
+//     std::uniform_int_distribution<> dist(low, high);
+//     return dist(gen);
+// }
 
 
 void SIMU_PROJECT::Loop()
 {
     // easing_path_simple_test();
-    easing_path_play_with_transition();
+    // easing_path_play_with_transition();
+    
     // transition_simple_test();
     // transition_user_data_test();
+
+    // smooth_point_simple_test();
+    smooth_point_bubble_pool_test();
+
 }
 
 

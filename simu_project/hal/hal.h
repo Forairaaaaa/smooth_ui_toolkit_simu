@@ -80,6 +80,16 @@ namespace IMU
 }
 
 
+namespace TOUCH
+{
+    struct Point_t
+    {
+        int x;
+        int y;
+    };
+}
+
+
 /**
  * @brief Singleton like pattern to simplify hal's getter 
  * 1) Inherit and override methods to create a specific hal 
@@ -375,4 +385,14 @@ public:
      */
     static void UpdateSystemFromConfig() { Get()->updateSystemFromConfig(); }
     virtual void updateSystemFromConfig() {}
+
+
+    static void UpdateTouch() { Get()->updateTouch(); }
+    virtual void updateTouch() {}
+
+    static int IsTouching() { return Get()->isTouching(); }
+    virtual bool isTouching() { return false; }
+
+    static TOUCH::Point_t GetTouchPoint() { return Get()->getTouchPoint(); }
+    virtual TOUCH::Point_t getTouchPoint() { return {-1, -1}; }
 };
