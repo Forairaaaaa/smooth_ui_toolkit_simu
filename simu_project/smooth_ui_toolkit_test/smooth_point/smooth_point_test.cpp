@@ -8,6 +8,7 @@
  * @copyright Copyright (c) 2023
  * 
  */
+#include <cstdint>
 #include <smooth_ui_toolkit.h>
 #include "../../hal/hal.h"
 #include "core/easing_path/easing_path.h"
@@ -101,6 +102,7 @@ void smooth_point_bubble_pool_test()
     }
 
     bool is_touching = false;
+    std::uint32_t render_time = 0;
     while (1)
     {
         // Input 
@@ -114,6 +116,7 @@ void smooth_point_bubble_pool_test()
             for (int i = 0; i < sp_list.size(); i++)
             {
                 sp_list[i].moveTo(HAL::GetTouchPoint().x, HAL::GetTouchPoint().y);
+                // sp_list[i].update(HAL::Millis());
             }
         }
 
@@ -129,24 +132,29 @@ void smooth_point_bubble_pool_test()
             }
         }
 
-        
-        auto ct = HAL::Millis();
-        HAL::GetCanvas()->fillScreen(TFT_WHITE);
+
         for (int i = 0; i < sp_list.size(); i++)
         {
             // Update 
             sp_list[i].update(HAL::Millis());
+        }
+        
 
-            // Redner 
+        // Render 
+        render_time = HAL::Millis();
+        HAL::GetCanvas()->fillScreen(TFT_WHITE);
+        for (int i = 0; i < sp_list.size(); i++)
+        {
             HAL::GetCanvas()->fillSmoothCircle(sp_list[i].getValue().x, sp_list[i].getValue().y, radius_list[i], color_list[i]);
         }
-
         #ifdef ESP_PLATFORM
         HAL::RenderFpsPanel();
         #endif
         HAL::GetCanvas()->setCursor(0, 8);
         HAL::GetCanvas()->printf("sp num: %d", bubble_num);
         HAL::CanvasUpdate();
+        render_time = HAL::Millis() - render_time;
+        spdlog::info("render time: {}", render_time);
     }
 }   
 
