@@ -26,7 +26,7 @@ int _mirro_y(int y)
 }
 
 
-void cubic_bezier_test()
+void easing_path_test()
 {
     spdlog::info("cubic bezier test");
 

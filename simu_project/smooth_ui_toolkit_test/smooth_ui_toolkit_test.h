@@ -12,13 +12,14 @@
 void simple_menu_test();
 void dragger_test();
 void anim_point_2d_test();
-void cubic_bezier_test();
+void easing_path_test();
+void transition_test();
 
 
 inline void smooth_ui_toolkit_test()
 {
     // simple_menu_test();
-    cubic_bezier_test();
-    // anim_point_2d_test();
-    // dragger_test();
+
+    // easing_path_test();
+    transition_test();
 }
