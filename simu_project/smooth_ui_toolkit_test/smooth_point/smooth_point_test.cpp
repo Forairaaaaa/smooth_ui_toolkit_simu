@@ -86,9 +86,10 @@ static std::vector<int> color_list;
 void smooth_point_bubble_pool_test()
 {
     // int bubble_num = 1024;
-    int bubble_num = 4096;
+    // int bubble_num = 4096;
+    int bubble_num = 4096 * 8;
     int min_duration = 200;
-    int max_duration = 800;
+    int max_duration = 1000;
 
     // Genarate random bubbles 
     for (int i = 0; i < bubble_num; i++)
@@ -102,58 +103,66 @@ void smooth_point_bubble_pool_test()
     }
 
     bool is_touching = false;
+    std::uint32_t current_time = 0;
     std::uint32_t render_time = 0;
+    std::uint32_t time_count = 0;
     while (1)
     {
         // Input 
-        HAL::UpdateTouch();
-        if (HAL::IsTouching())
+        if (HAL::Millis() - time_count > 5)
         {
-            is_touching = true;
-            spdlog::info("tp: ({}, {})", HAL::GetTouchPoint().x, HAL::GetTouchPoint().y);
-
-            // Move to touch point 
-            for (int i = 0; i < sp_list.size(); i++)
+            HAL::UpdateTouch();
+            if (HAL::IsTouching())
             {
-                sp_list[i].moveTo(HAL::GetTouchPoint().x, HAL::GetTouchPoint().y);
-                // sp_list[i].update(HAL::Millis());
+                is_touching = true;
+                // spdlog::info("tp: ({}, {})", HAL::GetTouchPoint().x, HAL::GetTouchPoint().y);
+
+                // Move to touch point 
+                for (int i = 0; i < sp_list.size(); i++)
+                {
+                    sp_list[i].moveTo(HAL::GetTouchPoint().x, HAL::GetTouchPoint().y);
+                }
             }
-        }
 
-        // If just released 
-        else if (is_touching)
-        {
-            is_touching = false;
-
-            // Move to random point 
-            for (int i = 0; i < sp_list.size(); i++)
+            // If just released 
+            else if (is_touching)
             {
-                sp_list[i].moveTo(_random(0, HAL::GetCanvas()->width()), _random(0, HAL::GetCanvas()->height()));
+                is_touching = false;
+
+                // Move to random point 
+                for (int i = 0; i < sp_list.size(); i++)
+                {
+                    sp_list[i].moveTo(_random(0, HAL::GetCanvas()->width()), _random(0, HAL::GetCanvas()->height()));
+                }
             }
-        }
 
-
-        for (int i = 0; i < sp_list.size(); i++)
-        {
-            // Update 
-            sp_list[i].update(HAL::Millis());
+            time_count = HAL::Millis();
         }
         
 
         // Render 
-        render_time = HAL::Millis();
+        current_time = HAL::Millis(); 
         HAL::GetCanvas()->fillScreen(TFT_WHITE);
         for (int i = 0; i < sp_list.size(); i++)
         {
-            HAL::GetCanvas()->fillSmoothCircle(sp_list[i].getValue().x, sp_list[i].getValue().y, radius_list[i], color_list[i]);
+            // When moveTo() was called, the next update() will reset the transition's time_offset, into the pass in currentTime
+            // So if render tooks quite a long time
+            // It's necessary to make sure the transtion reset to the correct time offset (current time - redner time)
+            sp_list[i].update(current_time - render_time);
+
+            // Update 
+            sp_list[i].update(current_time);
+            // HAL::GetCanvas()->fillSmoothCircle(sp_list[i].getValue().x, sp_list[i].getValue().y, radius_list[i], color_list[i]);
+            HAL::GetCanvas()->fillRect(sp_list[i].getValue().x, sp_list[i].getValue().y, radius_list[i], radius_list[i], color_list[i]);
         }
         #ifdef ESP_PLATFORM
         HAL::RenderFpsPanel();
         #endif
+        HAL::GetCanvas()->setTextSize(2);
         HAL::GetCanvas()->setCursor(0, 8);
-        HAL::GetCanvas()->printf("sp num: %d", bubble_num);
+        HAL::GetCanvas()->printf("smooth point num: %d", bubble_num);
         HAL::CanvasUpdate();
-        render_time = HAL::Millis() - render_time;
+        render_time = HAL::Millis() - current_time;
         spdlog::info("render time: {}", render_time);
     }
 }   
