@@ -16,7 +16,7 @@
 #include <vector>
 
 
-using namespace SMOOTH_UI_TK;
+using namespace SmoothUIToolKit;
 
 
 void anim_point_2d_test()

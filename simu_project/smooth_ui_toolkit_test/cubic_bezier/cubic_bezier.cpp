@@ -16,7 +16,7 @@
 #include <mooncake.h>
 
 
-using namespace SMOOTH_UI_TK;
+using namespace SmoothUIToolKit;
 
 
 // Mirro the y direction 

@@ -14,33 +14,33 @@
 
 namespace SYSTEM::UI
 {
-    class SelectMenuRenderCb_AlignLeft : public SMOOTH_UI_TK::SimpleMenuCallback_t
+    class SelectMenuRenderCb_AlignLeft : public SmoothUIToolKit::SimpleMenuCallback_t
     {
     public:
         void renderCallback(
-            const std::vector<SMOOTH_UI_TK::Item_t*>& menuItemList,
-            const SMOOTH_UI_TK::RenderAttribute_t& selector,
-            const SMOOTH_UI_TK::RenderAttribute_t& camera
+            const std::vector<SmoothUIToolKit::Item_t*>& menuItemList,
+            const SmoothUIToolKit::RenderAttribute_t& selector,
+            const SmoothUIToolKit::RenderAttribute_t& camera
         ) override;
     };
 
-    class SelectMenuRenderCb_AlignCenter : public SMOOTH_UI_TK::SimpleMenuCallback_t
+    class SelectMenuRenderCb_AlignCenter : public SmoothUIToolKit::SimpleMenuCallback_t
     {
     public:
         void renderCallback(
-            const std::vector<SMOOTH_UI_TK::Item_t*>& menuItemList,
-            const SMOOTH_UI_TK::RenderAttribute_t& selector,
-            const SMOOTH_UI_TK::RenderAttribute_t& camera
+            const std::vector<SmoothUIToolKit::Item_t*>& menuItemList,
+            const SmoothUIToolKit::RenderAttribute_t& selector,
+            const SmoothUIToolKit::RenderAttribute_t& camera
         ) override;
     };
 
-    class SelectMenuRenderCb_AlignRight : public SMOOTH_UI_TK::SimpleMenuCallback_t
+    class SelectMenuRenderCb_AlignRight : public SmoothUIToolKit::SimpleMenuCallback_t
     {
     public:
         void renderCallback(
-            const std::vector<SMOOTH_UI_TK::Item_t*>& menuItemList,
-            const SMOOTH_UI_TK::RenderAttribute_t& selector,
-            const SMOOTH_UI_TK::RenderAttribute_t& camera
+            const std::vector<SmoothUIToolKit::Item_t*>& menuItemList,
+            const SmoothUIToolKit::RenderAttribute_t& selector,
+            const SmoothUIToolKit::RenderAttribute_t& camera
         ) override;
     };
 }
