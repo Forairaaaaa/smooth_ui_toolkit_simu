@@ -37,10 +37,10 @@ void smooth_point_simple_test()
     };
 
 
-    SmoothPoint p(p_list[0]);
+    Transition2D p(p_list[0]);
 
 
-    p.setUpdateCallback([](SmoothPoint* sp) {
+    p.setUpdateCallback([](Transition2D* sp) {
         spdlog::info("at ({}, {})", sp->getValue().x, sp->getValue().y);
     });
 
@@ -79,7 +79,7 @@ static int _random(int low, int high)
 
 
 
-static std::vector<SmoothPoint> sp_list;
+static std::vector<Transition2D> sp_list;
 static std::vector<int> radius_list;
 static std::vector<int> color_list;
 
@@ -88,14 +88,17 @@ void smooth_point_bubble_pool_test()
     // int bubble_num = 1024;
     // int bubble_num = 4096;
     int bubble_num = 4096 * 8;
+    // int bubble_num = 4096 * 16;
     int min_duration = 200;
-    int max_duration = 1000;
+    int max_duration = 800;
+    // int max_duration = 3000;
 
     // Genarate random bubbles 
     for (int i = 0; i < bubble_num; i++)
     {
-        SmoothPoint sp(_random(0, HAL::GetCanvas()->width()), _random(0, HAL::GetCanvas()->height()));
-        sp.setTransitionPath(EasingPath::easeOutBack);
+        Transition2D sp(_random(0, HAL::GetCanvas()->width()), _random(0, HAL::GetCanvas()->height()));
+        // sp.setTransitionPath(EasingPath::easeOutBack);
+        sp.setTransitionPath(EasingPath::easeOutQuint);
         sp.setDuration(_random(min_duration, max_duration));
         sp_list.emplace_back(sp);
         radius_list.push_back(_random(2, 24));
@@ -154,13 +157,11 @@ void smooth_point_bubble_pool_test()
             sp_list[i].update(current_time);
             // HAL::GetCanvas()->fillSmoothCircle(sp_list[i].getValue().x, sp_list[i].getValue().y, radius_list[i], color_list[i]);
             HAL::GetCanvas()->fillRect(sp_list[i].getValue().x, sp_list[i].getValue().y, radius_list[i], radius_list[i], color_list[i]);
+            // HAL::GetCanvas()->drawPixel(sp_list[i].getValue().x, sp_list[i].getValue().y, color_list[i]);
         }
-        #ifdef ESP_PLATFORM
-        HAL::RenderFpsPanel();
-        #endif
         HAL::GetCanvas()->setTextSize(2);
-        HAL::GetCanvas()->setCursor(0, 8);
-        HAL::GetCanvas()->printf("smooth point num: %d", bubble_num);
+        HAL::GetCanvas()->setCursor(0, 0);
+        HAL::GetCanvas()->printf("transition2d num: %d", bubble_num);
         HAL::CanvasUpdate();
         render_time = HAL::Millis() - current_time;
         spdlog::info("render time: {}", render_time);
