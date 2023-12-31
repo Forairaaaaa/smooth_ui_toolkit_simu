@@ -26,10 +26,10 @@ void smooth_drag_simple_test()
 
 
 
-    SmoothDrag sd(x_offset, y_offset);
+    SmoothDrag sd;
 
-    // sd.setDuration(200);
-    sd.setDuration(400);
+    sd.setDuration(200);
+    // sd.setDuration(400);
     // sd.setDuration(800);
 
     // sd.setTransitionPath(EasingPath::easeOutBack);
@@ -38,8 +38,18 @@ void smooth_drag_simple_test()
         spdlog::info("offset: ({}, {})", smoothDrag->getOffset().x, smoothDrag->getOffset().y);
     });
 
-    // sd.lockX(true);
-    // sd.lockY(true);
+    auto cfg = sd.getDragConfig();
+    // cfg.lockXOffset = true;
+    // cfg.lockYOffset = true;
+    // cfg.autoReset = true;
+
+    cfg.offsetLimit = true;
+    cfg.xOffsetLimit.y = HAL::GetCanvas()->width() / 4;
+    cfg.xOffsetLimit.x = -cfg.xOffsetLimit.y;
+    cfg.yOffsetLimit.y = HAL::GetCanvas()->height() / 4;
+    cfg.yOffsetLimit.x = -cfg.yOffsetLimit.y;
+
+    sd.setDragConfig(cfg);
 
 
     bool is_touching = false;
@@ -49,6 +59,10 @@ void smooth_drag_simple_test()
     while (1)
     {
         HAL::GetCanvas()->fillScreen(TFT_WHITE);
+
+        // Render limit 
+        if (cfg.offsetLimit)
+            HAL::GetCanvas()->fillRect(cfg.xOffsetLimit.x + x_offset, cfg.yOffsetLimit.x + y_offset, GetRange(cfg.xOffsetLimit), GetRange(cfg.yOffsetLimit), TFT_LIGHTGRAY);
 
 
         // Input 
@@ -93,7 +107,7 @@ void smooth_drag_simple_test()
         current_time = HAL::Millis(); 
         // HAL::GetCanvas()->fillScreen(TFT_WHITE);
 
-        HAL::GetCanvas()->fillSmoothCircle(sd.getOffset().x, sd.getOffset().y, 24, TFT_BLACK);
+        HAL::GetCanvas()->fillSmoothCircle(sd.getOffset().x + x_offset, sd.getOffset().y + y_offset, 24, TFT_BLACK);
 
         HAL::GetCanvas()->setTextSize(2);
         HAL::GetCanvas()->setCursor(0, 0);
