@@ -52,7 +52,9 @@ void SIMU_PROJECT::Loop()
     // transition_user_data_test();
 
     // smooth_point_simple_test();
-    smooth_point_bubble_pool_test();
+    // smooth_point_bubble_pool_test();
+
+    smooth_drag_simple_test();
 
 }
 
