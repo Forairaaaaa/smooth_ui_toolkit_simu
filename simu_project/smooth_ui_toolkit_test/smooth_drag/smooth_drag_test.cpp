@@ -21,8 +21,14 @@ using namespace SmoothUIToolKit;
 
 void smooth_drag_simple_test()
 {
-    SmoothDrag sd;
+    int x_offset = HAL::GetCanvas()->width() / 2;
+    int y_offset = HAL::GetCanvas()->height() / 2;
 
+
+
+    SmoothDrag sd(x_offset, y_offset);
+
+    // sd.setDuration(200);
     sd.setDuration(400);
     // sd.setDuration(800);
 
@@ -32,15 +38,14 @@ void smooth_drag_simple_test()
         spdlog::info("offset: ({}, {})", smoothDrag->getOffset().x, smoothDrag->getOffset().y);
     });
 
+    // sd.lockX(true);
+    // sd.lockY(true);
+
 
     bool is_touching = false;
     std::uint32_t current_time = 0;
     std::uint32_t render_time = 0;
     std::uint32_t time_count = 0;
-
-    int x_offset = HAL::GetCanvas()->width() / 2;
-    int y_offset = HAL::GetCanvas()->height() / 2;
-
     while (1)
     {
         HAL::GetCanvas()->fillScreen(TFT_WHITE);
@@ -88,7 +93,7 @@ void smooth_drag_simple_test()
         current_time = HAL::Millis(); 
         // HAL::GetCanvas()->fillScreen(TFT_WHITE);
 
-        HAL::GetCanvas()->fillSmoothCircle(sd.getOffset().x + x_offset, sd.getOffset().y + y_offset, 24, TFT_BLACK);
+        HAL::GetCanvas()->fillSmoothCircle(sd.getOffset().x, sd.getOffset().y, 24, TFT_BLACK);
 
         HAL::GetCanvas()->setTextSize(2);
         HAL::GetCanvas()->setCursor(0, 0);
