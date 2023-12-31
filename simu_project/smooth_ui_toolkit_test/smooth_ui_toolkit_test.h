@@ -9,9 +9,6 @@
  * 
  */
 #pragma once
-// void simple_menu_test();
-// void dragger_test();
-// void anim_point_2d_test();
 
 void easing_path_simple_test();
 void easing_path_play_with_transition();
@@ -23,5 +20,5 @@ void smooth_point_simple_test();
 void smooth_point_bubble_pool_test();
 
 void smooth_drag_simple_test();
-
+void smooth_drag_content_test();
 

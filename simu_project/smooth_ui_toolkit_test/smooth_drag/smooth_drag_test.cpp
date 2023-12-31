@@ -14,6 +14,7 @@
 #include "lgfx/v1/misc/enum.hpp"
 #include "spdlog/spdlog.h"
 #include <mooncake.h>
+#include <vector>
 
 
 using namespace SmoothUIToolKit;
@@ -32,7 +33,7 @@ void smooth_drag_simple_test()
     // sd.setDuration(400);
     // sd.setDuration(800);
 
-    // sd.setTransitionPath(EasingPath::easeOutBack);
+    sd.setTransitionPath(EasingPath::easeOutBack);
 
     sd.setUpdateCallback([](SmoothDrag* smoothDrag) {
         spdlog::info("offset: ({}, {})", smoothDrag->getOffset().x, smoothDrag->getOffset().y);
@@ -53,9 +54,6 @@ void smooth_drag_simple_test()
 
 
     bool is_touching = false;
-    std::uint32_t current_time = 0;
-    std::uint32_t render_time = 0;
-    std::uint32_t time_count = 0;
     while (1)
     {
         HAL::GetCanvas()->fillScreen(TFT_WHITE);
@@ -66,48 +64,156 @@ void smooth_drag_simple_test()
 
 
         // Input 
-        // if (HAL::Millis() - time_count > 0)
-        if (1)
+        HAL::UpdateTouch();
+        if (HAL::IsTouching())
         {
-            HAL::UpdateTouch();
-            if (HAL::IsTouching())
-            {
-                is_touching = true;
+            is_touching = true;
 
-                // Render tp point 
-                // spdlog::info("tp: ({}, {})", HAL::GetTouchPoint().x, HAL::GetTouchPoint().y);
-                HAL::GetCanvas()->fillSmoothCircle(HAL::GetTouchPoint().x, HAL::GetTouchPoint().y, 12, TFT_YELLOW);
+            // Render tp point 
+            // spdlog::info("tp: ({}, {})", HAL::GetTouchPoint().x, HAL::GetTouchPoint().y);
+            HAL::GetCanvas()->fillSmoothCircle(HAL::GetTouchPoint().x, HAL::GetTouchPoint().y, 12, TFT_YELLOW);
+
+            // On dragging 
+            sd.drag(HAL::GetTouchPoint().x, HAL::GetTouchPoint().y);
+        }
+
+        // If just released 
+        else if (is_touching)
+        {
+            is_touching = false;
+
+            // Drop 
+            sd.drop();
+        }
+
+
+        // Update 
+        sd.update(HAL::Millis());
+        // spdlog::info("offset: ({}, {})", sd.getOffset().x, sd.getOffset().y);
+        
+
+        // Render 
+        HAL::GetCanvas()->fillSmoothCircle(sd.getOffset().x + x_offset, sd.getOffset().y + y_offset, 24, TFT_BLACK);
+
+        HAL::CanvasUpdate();
+    }
+
+}
 
 
 
-                // On dragging 
-                sd.drag(HAL::GetTouchPoint().x, HAL::GetTouchPoint().y);
-            }
+struct ContentPoint_t
+{
+    Vector2D_t p;
+    int radius = 0;
+    int color = 0;
+};
 
-            // If just released 
-            else if (is_touching)
-            {
-                is_touching = false;
+#include <random>
+static std::random_device rd;
+static std::mt19937 gen(rd());
+static int _random(int low, int high) 
+{
+    std::uniform_int_distribution<> dist(low, high);
+    return dist(gen);
+}
 
-                // Drop 
-                sd.drop();
-            }
+void smooth_drag_content_test()
+{
+    int content_w = HAL::GetCanvas()->width()  * 4;
+    int content_h = HAL::GetCanvas()->height() * 4;
+    int x_offset = 0;
+    int y_offset = 0;
+    int cp_num = 4096;
+    int max_raduis = 24;
 
-            time_count = HAL::Millis();
+    // Generate random 
+    std::vector<ContentPoint_t> content_p_list;
+    for (int i = 0; i < cp_num; i++)
+    {
+        ContentPoint_t new_cp;
+        new_cp.p.x = _random(0, content_w);
+        new_cp.p.y = _random(0, content_h);
+        new_cp.color = _random(0, TFT_WHITE);
+        new_cp.radius = _random(2, max_raduis);
+        content_p_list.emplace_back(new_cp);
+    }
+
+
+    SmoothDrag sd;
+
+    sd.setDuration(200);
+    // sd.setDuration(400);
+    // sd.setDuration(800);
+
+    sd.setTransitionPath(EasingPath::easeOutBack);
+
+    sd.setUpdateCallback([](SmoothDrag* smoothDrag) {
+        spdlog::info("offset: ({}, {})", smoothDrag->getOffset().x, smoothDrag->getOffset().y);
+    });
+
+    auto cfg = sd.getDragConfig();
+    // cfg.lockXOffset = true;
+    // cfg.lockYOffset = true;
+    // cfg.autoReset = true;
+
+    cfg.offsetLimit = true;
+    cfg.xOffsetLimit.x = -(content_w - HAL::GetCanvas()->width());
+    cfg.yOffsetLimit.x = -(content_h - HAL::GetCanvas()->height());
+
+    sd.setDragConfig(cfg);
+
+    
+    bool is_touching = false;
+    std::uint32_t current_time = 0;
+    std::uint32_t render_time = 0;
+    std::uint32_t time_count = 0;
+    while (1)
+    {
+        HAL::GetCanvas()->fillScreen(TFT_WHITE);
+    
+
+        // Input 
+        HAL::UpdateTouch();
+        if (HAL::IsTouching())
+        {
+            is_touching = true;
+
+            // Render tp point 
+            // spdlog::info("tp: ({}, {})", HAL::GetTouchPoint().x, HAL::GetTouchPoint().y);
+            HAL::GetCanvas()->fillSmoothCircle(HAL::GetTouchPoint().x, HAL::GetTouchPoint().y, 12, TFT_YELLOW);
+
+            // On dragging 
+            sd.drag(HAL::GetTouchPoint().x, HAL::GetTouchPoint().y);
+        }
+
+        // If just released 
+        else if (is_touching)
+        {
+            is_touching = false;
+
+            // Drop 
+            sd.drop();
         }
 
 
         // Update 
         // sd.update(current_time - render_time);
-        sd.update(current_time);
-        // spdlog::info("offset: ({}, {})", sd.getOffset().x, sd.getOffset().y);
+        sd.update(HAL::Millis());
         
 
         // Render 
-        current_time = HAL::Millis(); 
-        // HAL::GetCanvas()->fillScreen(TFT_WHITE);
+        current_time = HAL::Millis();
 
-        HAL::GetCanvas()->fillSmoothCircle(sd.getOffset().x + x_offset, sd.getOffset().y + y_offset, 24, TFT_BLACK);
+
+        HAL::GetCanvas()->fillRect(0 + sd.getOffset().x, 0 + sd.getOffset().y, content_w, content_h, TFT_LIGHTGRAY);
+        for (int i = 0; i < cp_num; i++)
+        {
+            int x = content_p_list[i].p.x + sd.getOffset().x;
+            int y = content_p_list[i].p.y + sd.getOffset().y;
+            HAL::GetCanvas()->fillRect(x, y, content_p_list[i].radius, content_p_list[i].radius, content_p_list[i].color);
+        }
+        
 
         HAL::GetCanvas()->setTextSize(2);
         HAL::GetCanvas()->setCursor(0, 0);
@@ -116,6 +222,5 @@ void smooth_drag_simple_test()
         render_time = HAL::Millis() - current_time;
         // spdlog::info("render time: {}", render_time);
     }
-
 }
 
