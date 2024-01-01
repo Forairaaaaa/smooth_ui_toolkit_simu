@@ -33,24 +33,27 @@ void smooth_drag_simple_test()
     // sd.setDuration(400);
     // sd.setDuration(800);
 
-    sd.setTransitionPath(EasingPath::easeOutBack);
+    // sd.setTransitionPath(EasingPath::easeOutBack);
+    sd.setResetTransitionPath(EasingPath::easeOutBack);
 
     sd.setUpdateCallback([](SmoothDrag* smoothDrag) {
         spdlog::info("offset: ({}, {})", smoothDrag->getOffset().x, smoothDrag->getOffset().y);
     });
 
-    auto cfg = sd.getDragConfig();
-    // cfg.lockXOffset = true;
-    // cfg.lockYOffset = true;
-    // cfg.autoReset = true;
 
-    cfg.offsetLimit = true;
-    cfg.xOffsetLimit.y = HAL::GetCanvas()->width() / 4;
-    cfg.xOffsetLimit.x = -cfg.xOffsetLimit.y;
-    cfg.yOffsetLimit.y = HAL::GetCanvas()->height() / 4;
-    cfg.yOffsetLimit.x = -cfg.yOffsetLimit.y;
+    // sd.setDragConfig().lockXOffset = true;
+    // sd.setDragConfig().lockYOffset = true;
+    // sd.setDragConfig().autoReset = true;
 
-    sd.setDragConfig(cfg);
+    // sd.setDragConfig().allowDraggingOutOfLimit = false;
+    
+
+    sd.setDragConfig().offsetLimit = true;
+    sd.setDragConfig().xOffsetLimit.y = HAL::GetCanvas()->width() / 4;
+    sd.setDragConfig().xOffsetLimit.x = -sd.getDragConfig().xOffsetLimit.y;
+    sd.setDragConfig().yOffsetLimit.y = HAL::GetCanvas()->height() / 4;
+    sd.setDragConfig().yOffsetLimit.x = -sd.getDragConfig().yOffsetLimit.y;
+
 
 
     bool is_touching = false;
@@ -59,8 +62,14 @@ void smooth_drag_simple_test()
         HAL::GetCanvas()->fillScreen(TFT_WHITE);
 
         // Render limit 
-        if (cfg.offsetLimit)
-            HAL::GetCanvas()->fillRect(cfg.xOffsetLimit.x + x_offset, cfg.yOffsetLimit.x + y_offset, GetRange(cfg.xOffsetLimit), GetRange(cfg.yOffsetLimit), TFT_LIGHTGRAY);
+        if (sd.getDragConfig().offsetLimit)
+            HAL::GetCanvas()->fillRect(
+                sd.getDragConfig().xOffsetLimit.x + x_offset, 
+                sd.getDragConfig().yOffsetLimit.x + y_offset, 
+                GetRange(sd.getDragConfig().xOffsetLimit), 
+                GetRange(sd.getDragConfig().yOffsetLimit), 
+                TFT_LIGHTGRAY
+            );
 
 
         // Input 
@@ -146,7 +155,7 @@ void smooth_drag_content_test()
     // sd.setDuration(400);
     // sd.setDuration(800);
 
-    sd.setTransitionPath(EasingPath::easeOutBack);
+    sd.setTransitionPath(EasingPath::easeOutBounce);
 
     sd.setUpdateCallback([](SmoothDrag* smoothDrag) {
         spdlog::info("offset: ({}, {})", smoothDrag->getOffset().x, smoothDrag->getOffset().y);
@@ -154,7 +163,7 @@ void smooth_drag_content_test()
 
     auto cfg = sd.getDragConfig();
     // cfg.lockXOffset = true;
-    // cfg.lockYOffset = true;
+    cfg.lockYOffset = true;
     // cfg.autoReset = true;
 
     cfg.offsetLimit = true;
