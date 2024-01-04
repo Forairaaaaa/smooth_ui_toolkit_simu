@@ -44,6 +44,10 @@ void SIMU_PROJECT::Setup()
 // }
 
 
+
+void smooth_widget_base_test();
+
+
 void SIMU_PROJECT::Loop()
 {
     // easing_path_simple_test();
@@ -55,8 +59,11 @@ void SIMU_PROJECT::Loop()
     // smooth_point_simple_test();
     // smooth_point_bubble_pool_test();
 
-    smooth_drag_simple_test();
+    // smooth_drag_simple_test();
     // smooth_drag_content_test();
+
+
+    smooth_widget_base_test();
 }
 
 

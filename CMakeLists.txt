@@ -9,6 +9,8 @@ add_definitions(-DLGFX_SDL)
 file(GLOB_RECURSE SIMU_PROJECT_SRCS
     simu_project/smooth_ui_toolkit_test/*.c
     simu_project/smooth_ui_toolkit_test/*.cpp
+    simu_project/smooth_widget_test/*.c
+    simu_project/smooth_widget_test/*.cpp
     simu_project/hal/hal_simulator/*.c
     simu_project/hal/hal_simulator/*.cpp
 )
