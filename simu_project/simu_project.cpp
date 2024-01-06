@@ -46,6 +46,7 @@ void SIMU_PROJECT::Setup()
 
 
 void smooth_widget_base_test();
+void select_menu_test();
 
 
 void SIMU_PROJECT::Loop()
@@ -57,13 +58,15 @@ void SIMU_PROJECT::Loop()
     // transition_user_data_test();
 
     // smooth_point_simple_test();
-    smooth_point_bubble_pool_test();
+    // smooth_point_bubble_pool_test();
 
     // smooth_drag_simple_test();
     // smooth_drag_content_test();
 
 
     // smooth_widget_base_test();
+
+    select_menu_test();
 }
 
 
