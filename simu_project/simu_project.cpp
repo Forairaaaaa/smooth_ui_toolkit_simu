@@ -26,8 +26,8 @@ void SIMU_PROJECT::Setup()
     // HAL injection 
     #ifndef ESP_PLATFORM
     // HAL::Inject(new HAL_Simulator(640, 640));
-    // HAL::Inject(new HAL_Simulator(320, 240));
-    HAL::Inject(new HAL_Simulator(1280, 800));
+    HAL::Inject(new HAL_Simulator(320, 240));
+    // HAL::Inject(new HAL_Simulator(1280, 800));
     #else
     HAL::Inject(new HAL_Core2());
     #endif
@@ -46,7 +46,8 @@ void SIMU_PROJECT::Setup()
 
 
 void smooth_widget_base_test();
-void select_menu_test();
+void select_menu_smooth_option_test();
+void select_menu_smooth_selector_test();
 
 
 void SIMU_PROJECT::Loop()
@@ -66,7 +67,8 @@ void SIMU_PROJECT::Loop()
 
     // smooth_widget_base_test();
 
-    select_menu_test();
+    // select_menu_smooth_option_test();
+    select_menu_smooth_selector_test();
 }
 
 

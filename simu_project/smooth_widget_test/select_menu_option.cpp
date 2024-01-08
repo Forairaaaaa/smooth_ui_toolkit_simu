@@ -96,7 +96,7 @@ class SmoothOption_Test : public SmoothOptions
     }
 };
 
-void select_menu_test()
+void select_menu_smooth_option_test()
 {
     SmoothOption_Test menu;
     // menu.setConfig().renderInterval = 500;
