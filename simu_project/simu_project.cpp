@@ -67,8 +67,8 @@ void SIMU_PROJECT::Loop()
 
     // smooth_widget_base_test();
 
-    // select_menu_smooth_option_test();
-    select_menu_smooth_selector_test();
+    select_menu_smooth_option_test();
+    // select_menu_smooth_selector_test();
 }
 
 
