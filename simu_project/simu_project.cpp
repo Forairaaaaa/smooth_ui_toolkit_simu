@@ -55,7 +55,7 @@ void SIMU_PROJECT::Loop()
     // easing_path_simple_test();
     // easing_path_play_with_transition();
     
-    // transition_simple_test();
+    transition_simple_test();
     // transition_user_data_test();
 
     // smooth_point_simple_test();
