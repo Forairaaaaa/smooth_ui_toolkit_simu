@@ -29,6 +29,8 @@ void transition_simple_test()
     // Setup 
     t1.setStartValue(0);
     t1.setEndValue(100);
+    // t1.setDuration(400);
+    // t1.setTransitionPath(EasingPath::easeOutBack);
 
 
     // Or setup by helper 

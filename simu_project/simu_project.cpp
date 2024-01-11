@@ -26,8 +26,8 @@ void SIMU_PROJECT::Setup()
     // HAL injection 
     #ifndef ESP_PLATFORM
     // HAL::Inject(new HAL_Simulator(640, 640));
-    HAL::Inject(new HAL_Simulator(320, 240));
-    // HAL::Inject(new HAL_Simulator(1280, 800));
+    // HAL::Inject(new HAL_Simulator(320, 240));
+    HAL::Inject(new HAL_Simulator(1280, 800));
     #else
     HAL::Inject(new HAL_Core2());
     #endif
@@ -55,7 +55,7 @@ void SIMU_PROJECT::Loop()
     // easing_path_simple_test();
     // easing_path_play_with_transition();
     
-    transition_simple_test();
+    // transition_simple_test();
     // transition_user_data_test();
 
     // smooth_point_simple_test();

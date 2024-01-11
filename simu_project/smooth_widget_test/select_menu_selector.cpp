@@ -89,8 +89,8 @@ class SmoothSelector_test : public SmoothSelector
         for (auto& i : getOptionList())
         {
             HAL::GetCanvas()->fillRect(i.keyframe.x, i.keyframe.y, i.keyframe.w, i.keyframe.h, TFT_BLUE);
-            HAL::GetCanvas()->setTextColor(TFT_YELLOW);
-            // HAL::GetCanvas()->setTextSize(4);
+            HAL::GetCanvas()->setTextColor(TFT_RED);
+            HAL::GetCanvas()->setTextSize(2);
             HAL::GetCanvas()->setCursor(i.keyframe.x, i.keyframe.y);
             HAL::GetCanvas()->printf("%d", index);
 

@@ -69,28 +69,30 @@ class SmoothOption_Test : public SmoothOptions
         // Clear
         HAL::GetCanvas()->fillScreen(TFT_WHITE);
 
-        // Redner options in keyframe order
-        int i = 0;
-        int matching_index = 0;
-        for (const auto& keyframe : getKeyframeList())
+        // Redner options in reversed keyframe order
+        for (int i = getKeyframeList().size() - 1; i >= 0; i--)
         {
-            // // Render keyframes
-            // HAL::GetCanvas()->fillRect(keyframe.x, keyframe.y, keyframe.w, keyframe.h, TFT_YELLOW);
+            auto ocf = getOptionCurrentFrame(getMatchingOptionIndex(i));
 
             // Render options
-            getMatchingOptionIndex(i, matching_index);
-            HAL::GetCanvas()->fillRect(getOptionCurrentFrame(matching_index).x, getOptionCurrentFrame(matching_index).y,
-                                       getOptionCurrentFrame(matching_index).w, getOptionCurrentFrame(matching_index).h,
-                                       TFT_BLUE
-
-            );
-            HAL::GetCanvas()->setCursor(getOptionCurrentFrame(matching_index).x, getOptionCurrentFrame(matching_index).y);
-            HAL::GetCanvas()->setTextSize(4);
-            HAL::GetCanvas()->setTextColor(TFT_BLACK);
-            HAL::GetCanvas()->printf("%d", matching_index);
-
-            i++;
+            HAL::GetCanvas()->fillRect(ocf.x, ocf.y, ocf.w, ocf.h, TFT_BLUE);
+            HAL::GetCanvas()->setCursor(ocf.x, ocf.y);
+            HAL::GetCanvas()->setTextSize(8);
+            HAL::GetCanvas()->setTextColor(TFT_RED);
+            HAL::GetCanvas()->printf("%d", getMatchingOptionIndex(i));
         }
+
+        // for (int i = 0; i < getOptionList().size(); i++)
+        // {
+        //     auto ocf = getOptionCurrentFrame(i);
+
+        //     // Render options
+        //     HAL::GetCanvas()->fillRect(ocf.x, ocf.y, ocf.w, ocf.h, TFT_BLUE);
+        //     HAL::GetCanvas()->setCursor(ocf.x, ocf.y);
+        //     HAL::GetCanvas()->setTextSize(4);
+        //     HAL::GetCanvas()->setTextColor(TFT_BLACK);
+        //     HAL::GetCanvas()->printf("%d", i);
+        // }
 
         HAL::CanvasUpdate();
     }

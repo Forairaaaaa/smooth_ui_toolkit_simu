@@ -40,6 +40,9 @@ void smooth_point_simple_test()
     Transition2D p(p_list[0]);
 
 
+    p.jumpTo(100, 233);
+    p.moveTo(666, 777);
+
     p.setUpdateCallback([](Transition2D* sp) {
         spdlog::info("at ({}, {})", sp->getValue().x, sp->getValue().y);
     });
