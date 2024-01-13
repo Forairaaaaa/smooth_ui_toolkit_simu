@@ -48,6 +48,7 @@ void SIMU_PROJECT::Setup()
 void smooth_widget_base_test();
 void select_menu_smooth_option_test();
 void select_menu_smooth_selector_test();
+void ring_buffer_test();
 
 
 void SIMU_PROJECT::Loop()
@@ -67,8 +68,10 @@ void SIMU_PROJECT::Loop()
 
     // smooth_widget_base_test();
 
-    select_menu_smooth_option_test();
+    // select_menu_smooth_option_test();
     // select_menu_smooth_selector_test();
+
+    ring_buffer_test();
 }
 
 
