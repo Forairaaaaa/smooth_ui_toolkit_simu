@@ -11,6 +11,7 @@
 #include "../hal/hal.h"
 #include "core/math/math.h"
 #include "core/transition3d/transition3d.h"
+#include "lgfx/v1/lgfx_fonts.hpp"
 #include "lgfx/v1/misc/colortype.hpp"
 #include "lgfx/v1/misc/enum.hpp"
 #include "spdlog/spdlog.h"
@@ -51,6 +52,14 @@ void smooth_color_test()
 
             // Background
             HAL::GetCanvas()->fillScreen(Rgb2Hex(smooth_rgb->getCurrentColor()));
+            HAL::GetCanvas()->setCursor(0, 0);
+            HAL::GetCanvas()->setFont(&fonts::efontCN_24);
+            HAL::GetCanvas()->setTextColor(TFT_WHITE, TFT_BLACK);
+            HAL::GetCanvas()->printf("HEX: #%06X\nR:   %3d\nG:   %3d\nB:   %3d",
+                                     Rgb2Hex(smooth_rgb->getCurrentColor()),
+                                     smooth_rgb->getCurrentRed(),
+                                     smooth_rgb->getCurrentGreen(),
+                                     smooth_rgb->getCurrentBlue());
 
             // Chart
             color_rb.put(smooth_rgb->getCurrentColor());
