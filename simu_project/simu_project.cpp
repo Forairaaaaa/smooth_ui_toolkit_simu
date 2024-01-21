@@ -16,7 +16,6 @@
 #else
 #include "hal/hal_core2/hal_core2.hpp"
 #endif
-#include "smooth_ui_toolkit_test/smooth_ui_toolkit_test.h"
 
 void SIMU_PROJECT::Setup()
 {
@@ -41,6 +40,14 @@ void SIMU_PROJECT::Setup()
 //     return dist(gen);
 // }
 
+void easing_path_simple_test();
+void easing_path_play_with_transition();
+void transition_simple_test();
+void transition_user_data_test();
+void smooth_point_simple_test();
+void smooth_point_bubble_pool_test();
+void smooth_drag_simple_test();
+void smooth_drag_content_test();
 void smooth_widget_base_test();
 void select_menu_smooth_option_test();
 void select_menu_smooth_selector_test();
@@ -50,13 +57,13 @@ void line_chart_test();
 void SIMU_PROJECT::Loop()
 {
     // easing_path_simple_test();
-    // easing_path_play_with_transition();
+    easing_path_play_with_transition();
 
     // transition_simple_test();
     // transition_user_data_test();
 
     // smooth_point_simple_test();
-    smooth_point_bubble_pool_test();
+    // smooth_point_bubble_pool_test();
 
     // smooth_drag_simple_test();
     // smooth_drag_content_test();

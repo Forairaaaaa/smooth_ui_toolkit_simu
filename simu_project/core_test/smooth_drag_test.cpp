@@ -8,7 +8,7 @@
  * @copyright Copyright (c) 2023
  *
  */
-#include "../../hal/hal.h"
+#include "../hal/hal.h"
 #include "core/easing_path/easing_path.h"
 #include "lgfx/v1/misc/enum.hpp"
 #include "spdlog/spdlog.h"

@@ -1,31 +1,24 @@
 /**
  * @file cubic_bezier.cpp
  * @author Forairaaaaa
- * @brief 
+ * @brief
  * @version 0.1
  * @date 2023-12-29
- * 
+ *
  * @copyright Copyright (c) 2023
- * 
+ *
  */
-#include <smooth_ui_toolkit.h>
-#include "../../hal/hal.h"
+#include "../hal/hal.h"
 #include "core/easing_path/easing_path.h"
 #include "lgfx/v1/misc/enum.hpp"
 #include "spdlog/spdlog.h"
 #include <mooncake.h>
-
+#include <smooth_ui_toolkit.h>
 
 using namespace SmoothUIToolKit;
 
-
-
-// Mirro the y direction 
-static int _mirro_y(int y)
-{
-    return HAL::GetCanvas()->height() - y;
-}
-
+// Mirro the y direction
+static int _mirro_y(int y) { return HAL::GetCanvas()->height() - y; }
 
 void easing_path_simple_test()
 {
@@ -33,13 +26,13 @@ void easing_path_simple_test()
     int x_offset = (HAL::GetCanvas()->width() - EasingPath::maxT / scale) / 4;
     int y_offset = (HAL::GetCanvas()->height() - EasingPath::maxT / scale) / 2;
 
-
-    // Draw path curve 
+    // Draw path curve
     HAL::GetCanvas()->fillScreen(TFT_WHITE);
-    HAL::GetCanvas()->drawRect(x_offset, _mirro_y(y_offset), EasingPath::maxT / scale, -(EasingPath::maxT / scale), TFT_DARKGRAY);
+    HAL::GetCanvas()->drawRect(
+        x_offset, _mirro_y(y_offset), EasingPath::maxT / scale, -(EasingPath::maxT / scale), TFT_DARKGRAY);
     for (int t = 0; t < EasingPath::maxT; t++)
     {
-        // Get value 
+        // Get value
         // auto b = EasingPath::linear(t);
         // auto b = EasingPath::easeInQuad(t);
         // auto b = EasingPath::easeOutQuad(t);
@@ -72,14 +65,11 @@ void easing_path_simple_test()
         // auto b = EasingPath::easeOutBounce(t);
         auto b = EasingPath::easeInOutBounce(t);
 
-
         // spdlog::info("b({}) = {}", t, b);
         HAL::GetCanvas()->fillSmoothCircle(t / scale + x_offset, _mirro_y(b / scale + y_offset), 2, TFT_BLACK);
     }
     HAL::CanvasUpdate();
 }
-
-
 
 struct UserDataTest_t
 {
@@ -95,14 +85,14 @@ struct UserDataTest_t
     }
 };
 
-
 static void _render_callback(Transition* transition)
 {
-    // Reder 
+    // Reder
     auto user_data = static_cast<UserDataTest_t*>(transition->getUserData());
-    HAL::GetCanvas()->fillSmoothCircle(user_data->xOffset, _mirro_y(transition->getValue() + user_data->yOffset), user_data->radius, TFT_BLACK);
+    HAL::GetCanvas()->fillSmoothCircle(
+        user_data->xOffset, _mirro_y(transition->getValue() + user_data->yOffset), user_data->radius, TFT_BLACK);
 
-    // If finish, invert back 
+    // If finish, invert back
     if (transition->isFinish())
     {
         transition->setConfig(transition->getEndValue(), transition->getStartValue());
@@ -111,7 +101,6 @@ static void _render_callback(Transition* transition)
         transition->start(HAL::Millis());
     }
 }
-
 
 void easing_path_play_with_transition()
 {
@@ -125,7 +114,7 @@ void easing_path_play_with_transition()
     auto x_offset = y_end + (HAL::GetCanvas()->width() - y_end) / 2 + curve_x_offset - radius;
     auto y_offset = curve_y_offset;
 
-    // Transition list 
+    // Transition list
     std::vector<Transition> t_list;
     t_list.emplace_back(Transition(y_start, y_end, 800, EasingPath::linear));
     t_list.emplace_back(Transition(y_start, y_end, 800, EasingPath::easeOutSine));
@@ -159,22 +148,22 @@ void easing_path_play_with_transition()
     t_list.emplace_back(Transition(y_start, y_end, 800, EasingPath::easeInBounce));
     t_list.emplace_back(Transition(y_start, y_end, 800, EasingPath::easeInOutBounce));
 
-    // Set user data and callback 
+    // Set user data and callback
     for (int i = 0; i < t_list.size(); i++)
     {
         t_list[i].setUserData(new UserDataTest_t(x_offset, y_offset, radius));
         t_list[i].setUpdateCallback(_render_callback);
     }
 
-
     int current_t = 0;
     bool changed = true;
     while (1)
     {
-        // Input 
+        // Input
         if (HAL::GetAnyButton())
         {
-            while (HAL::GetAnyButton());
+            while (HAL::GetAnyButton())
+                ;
 
             current_t++;
             if (current_t > t_list.size() - 1)
@@ -193,28 +182,27 @@ void easing_path_play_with_transition()
             t_list[current_t].start(HAL::Millis());
         }
 
-
         HAL::GetCanvas()->fillScreen(TFT_WHITE);
 
-        // Render ball 
+        // Render ball
         t_list[current_t].update(HAL::Millis());
 
-        // Render easing path curve 
-        HAL::GetCanvas()->drawRect(curve_x_offset, _mirro_y(curve_y_offset), EasingPath::maxT / scale, -(EasingPath::maxT / scale), TFT_DARKGRAY);
+        // Render easing path curve
+        HAL::GetCanvas()->drawRect(
+            curve_x_offset, _mirro_y(curve_y_offset), EasingPath::maxT / scale, -(EasingPath::maxT / scale), TFT_DARKGRAY);
         for (int t = 0; t < EasingPath::maxT; t++)
         {
             auto b = t_list[current_t].getTransitionPath()(t);
-            #ifndef ESP_PLATFORM
+#ifndef ESP_PLATFORM
             HAL::GetCanvas()->fillSmoothCircle(t / scale + curve_x_offset, _mirro_y(b / scale + curve_y_offset), 2, TFT_BLACK);
-            #else
+#else
             HAL::GetCanvas()->fillRect(t / scale + curve_x_offset, _mirro_y(b / scale + curve_y_offset), 2, 2, TFT_BLACK);
-            #endif
+#endif
         }
 
-        #ifdef ESP_PLATFORM
+#ifdef ESP_PLATFORM
         HAL::RenderFpsPanel();
-        #endif
+#endif
         HAL::CanvasUpdate();
     }
-
 }

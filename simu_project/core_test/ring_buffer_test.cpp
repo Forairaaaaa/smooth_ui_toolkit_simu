@@ -8,7 +8,7 @@
  * @copyright Copyright (c) 2024
  *
  */
-#include "../../hal/hal.h"
+#include "../hal/hal.h"
 #include "core/easing_path/easing_path.h"
 #include "lgfx/v1/misc/enum.hpp"
 #include "spdlog/spdlog.h"
@@ -60,7 +60,6 @@ void ring_buffer_test()
                     // HAL::GetCanvas()->drawLine(
                     //     chart_x - 1, last_value * 100 + y_offset + 2, chart_x, value * 100 + y_offset + 2, TFT_BLUE);
                 }
-                    
 
                 chart_x++;
                 last_value = value;

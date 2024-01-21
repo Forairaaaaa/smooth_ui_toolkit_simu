@@ -8,7 +8,7 @@
  * @copyright Copyright (c) 2024
  *
  */
-#include "../../hal/hal.h"
+#include "../hal/hal.h"
 #include "core/easing_path/easing_path.h"
 #include "lgfx/v1/lgfx_fonts.hpp"
 #include "lgfx/v1/misc/enum.hpp"

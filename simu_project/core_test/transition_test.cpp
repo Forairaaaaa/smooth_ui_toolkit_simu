@@ -1,64 +1,58 @@
 /**
  * @file transition_test.cpp
  * @author Forairaaaaa
- * @brief 
+ * @brief
  * @version 0.1
  * @date 2023-12-30
- * 
+ *
  * @copyright Copyright (c) 2023
- * 
+ *
  */
-#include <smooth_ui_toolkit.h>
-#include "../../hal/hal.h"
+#include "../hal/hal.h"
 #include "core/easing_path/easing_path.h"
 #include "lgfx/v1/misc/enum.hpp"
 #include "spdlog/spdlog.h"
 #include <mooncake.h>
+#include <smooth_ui_toolkit.h>
 #include <vector>
 
-
 using namespace SmoothUIToolKit;
-
-
 
 void transition_simple_test()
 {
     Transition t1;
 
-
-    // Setup 
+    // Setup
     t1.setStartValue(0);
     t1.setEndValue(100);
     // t1.setDuration(400);
     // t1.setTransitionPath(EasingPath::easeOutBack);
 
-
-    // Or setup by helper 
+    // Or setup by helper
     t1.setConfig(HAL::GetCanvas()->width() / 6, HAL::GetCanvas()->width() / 6 * 5, 1000, EasingPath::easeOutQuad);
 
-
     // Set update callback (optional)
-    t1.setUpdateCallback([](Transition* transition) {
-        spdlog::info("value: {}", transition->getValue());
-
-        // If finish, invert back 
-        if (transition->isFinish())
+    t1.setUpdateCallback(
+        [](Transition* transition)
         {
-            transition->setConfig(transition->getEndValue(), transition->getStartValue());
-            transition->setDelay(500);
-            transition->reset();
-            transition->start(HAL::Millis());
-        }
-    });
+            spdlog::info("value: {}", transition->getValue());
 
+            // If finish, invert back
+            if (transition->isFinish())
+            {
+                transition->setConfig(transition->getEndValue(), transition->getStartValue());
+                transition->setDelay(500);
+                transition->reset();
+                transition->start(HAL::Millis());
+            }
+        });
 
-    // Start transtion 
+    // Start transtion
     t1.start(HAL::Millis());
-
 
     while (1)
     {
-        // Update transition 
+        // Update transition
         t1.update(HAL::Millis());
 
         HAL::GetCanvas()->fillScreen(TFT_WHITE);
@@ -66,8 +60,6 @@ void transition_simple_test()
         HAL::CanvasUpdate();
     }
 }
-
-
 
 struct UserDataTest_t
 {
@@ -81,14 +73,13 @@ struct UserDataTest_t
     }
 };
 
-
 static void _render_callback(Transition* transition)
 {
-    // Reder 
+    // Reder
     auto user_data = static_cast<UserDataTest_t*>(transition->getUserData());
     HAL::GetCanvas()->fillSmoothCircle(transition->getValue(), user_data->yOffset, user_data->radius, TFT_BLACK);
 
-    // If finish, invert back 
+    // If finish, invert back
     if (transition->isFinish())
     {
         spdlog::info("finish");
@@ -100,12 +91,10 @@ static void _render_callback(Transition* transition)
     }
 }
 
-
 void transition_user_data_test()
 {
     auto x_start = HAL::GetCanvas()->width() / 6;
     auto x_end = HAL::GetCanvas()->width() / 6 * 5;
-    
 
     std::vector<Transition> t_list;
     t_list.emplace_back(Transition(x_start, x_end, 1000, EasingPath::easeOutSine));
@@ -119,8 +108,7 @@ void transition_user_data_test()
     t_list.emplace_back(Transition(x_start, x_end, 1000, EasingPath::easeOutElastic));
     t_list.emplace_back(Transition(x_start, x_end, 1000, EasingPath::easeOutBounce));
 
-
-    // Set user data, callback and start 
+    // Set user data, callback and start
     for (int i = 0; i < t_list.size(); i++)
     {
         int y_offset = HAL::GetCanvas()->height() / t_list.size() * i;
@@ -134,7 +122,6 @@ void transition_user_data_test()
         t_list[i].start(HAL::Millis());
     }
 
-
     while (1)
     {
         HAL::GetCanvas()->fillScreen(TFT_WHITE);
@@ -142,9 +129,9 @@ void transition_user_data_test()
         {
             t.update(HAL::Millis());
         }
-        #ifdef ESP_PLATFORM
+#ifdef ESP_PLATFORM
         HAL::RenderFpsPanel();
-        #endif
+#endif
         HAL::CanvasUpdate();
     }
 }
