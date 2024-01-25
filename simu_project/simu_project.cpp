@@ -76,8 +76,8 @@ void SIMU_PROJECT::Loop()
     // select_menu_smooth_selector_test();
 
     // ring_buffer_test();
-    // line_chart_test();
-    line_chart_test2();
+    line_chart_test();
+    // line_chart_test2();
 
     // smooth_color_test();
 

@@ -107,6 +107,7 @@ void line_chart_test()
         }
 
         chart.moveZoomTo(0.1, 1);
+        chart.moveOffsetTo(100, 120);
         time_count = HAL::Millis();
         while (1)
         {
@@ -128,6 +129,7 @@ void line_chart_test()
         }
 
         chart.moveZoomTo(1, 1);
+        chart.moveOffsetTo(0, 120);
         while (!chart.isFinish())
         {
             chart.update(HAL::Millis());
@@ -171,8 +173,8 @@ void line_chart_test2()
     // chart.getZoomTransition().setTransitionPath(EasingPath::easeOutBack);
 
     // chart.moveOffsetTo(0, 120);
-    // chart.moveZoomTo(1, 120);
-    // chart.moveOffsetTo(0, 1);
+    chart.moveZoomTo(1, 120);
+    chart.moveOffsetTo(0, 1);
     // chart.moveZoomTo(1, 120);
 
     auto y_zoom = chart.getZoomByRange(-1, 1, chart.getConfig().size.height);
@@ -195,6 +197,7 @@ void line_chart_test2()
         // }
 
         // chart.moveZoomTo(1, 60);
+        // chart.moveOffsetTo(0, 1);
         // time_count = HAL::Millis();
         // while (1)
         // {
