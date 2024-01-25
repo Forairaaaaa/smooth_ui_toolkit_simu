@@ -64,9 +64,9 @@ class SmoothLineChart_Test : public SmoothLineChart
         HAL::GetCanvas()->setFont(&fonts::efontCN_16);
         HAL::GetCanvas()->setTextColor(TFT_BLUE);
         HAL::GetCanvas()->setCursor(getOrigin().x, getOrigin().y - 32);
-        HAL::GetCanvas()->printf("(x offset: % 5d) (x zoom: % 5d)", getOffset().x, getZoom().x);
+        HAL::GetCanvas()->printf("(x offset: % 5d) (x zoom: % .5f)", getOffset().x, getFloatZoom().x);
         HAL::GetCanvas()->setCursor(getOrigin().x, getOrigin().y - 16);
-        HAL::GetCanvas()->printf("(y offset: % 5d) (y zoom: %5d)", getOffset().y, getZoom().y);
+        HAL::GetCanvas()->printf("(y offset: % 5d) (y zoom: % .5f)", getOffset().y, getFloatZoom().y);
 
         HAL::CanvasUpdate();
     }
@@ -104,7 +104,7 @@ void line_chart_test()
             chart.update(HAL::Millis());
         }
 
-        chart.moveZoomTo(100, ZoomBase);
+        chart.moveFloatZoomTo(0.1, 1);
         time_count = HAL::Millis();
         while (1)
         {
@@ -113,7 +113,7 @@ void line_chart_test()
                 break;
         }
 
-        chart.moveZoomTo(400, 2000);
+        chart.moveFloatZoomTo(0.4, 2);
         while (!chart.isFinish())
         {
             chart.update(HAL::Millis());
@@ -125,13 +125,13 @@ void line_chart_test()
             chart.update(HAL::Millis());
         }
 
-        chart.moveZoomTo(1000, 1000);
+        chart.moveFloatZoomTo(1, 1);
         while (!chart.isFinish())
         {
             chart.update(HAL::Millis());
         }
 
-        chart.moveZoomTo(100, 600);
+        chart.moveFloatZoomTo(0.1, 0.6);
         while (!chart.isFinish())
         {
             chart.update(HAL::Millis());

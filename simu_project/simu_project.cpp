@@ -75,11 +75,11 @@ void SIMU_PROJECT::Loop()
     // select_menu_smooth_selector_test();
 
     // ring_buffer_test();
-    // line_chart_test();
+    line_chart_test();
 
     // smooth_color_test();
 
-    smooth_widget_base_test();
+    // smooth_widget_base_test();
 }
 
 void SIMU_PROJECT::Destroy()
