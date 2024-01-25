@@ -46,21 +46,23 @@ class SmoothLineChart_Test : public SmoothLineChart
         Vector2D_t last_p;
         int chart_x = 0;
         SmoothLineChart_Test* chat = this;
-        _point_list.peekAll([&chart_x, &last_p, chat](VectorFloat2D_t value) {
-            auto cp = chat->getChartPoint(chart_x, value.y);
-            // spdlog::info("{} {}", cp.x, cp.y);
+        _point_list.peekAll(
+            [&chart_x, &last_p, chat](VectorFloat2D_t value)
+            {
+                auto cp = chat->getChartPoint(chart_x, value.y);
+                // spdlog::info("{} {}", cp.x, cp.y);
 
-            if (chat->isInChart(cp.x, cp.y))
-                HAL::GetCanvas()->setColor(TFT_YELLOW);
-            else
-                HAL::GetCanvas()->setColor(TFT_LIGHTGRAY);
+                if (chat->isInChart(cp.x, cp.y))
+                    HAL::GetCanvas()->setColor(TFT_YELLOW);
+                else
+                    HAL::GetCanvas()->setColor(TFT_LIGHTGRAY);
 
-            // HAL::GetCanvas()->fillCircle(cp.x, cp.y, 1);
-            if (chart_x != 0)
-                HAL::GetCanvas()->drawLine(last_p.x, last_p.y, cp.x, cp.y);
-            last_p = cp;
-            chart_x++;
-        });
+                // HAL::GetCanvas()->fillCircle(cp.x, cp.y, 1);
+                if (chart_x != 0)
+                    HAL::GetCanvas()->drawLine(last_p.x, last_p.y, cp.x, cp.y);
+                last_p = cp;
+                chart_x++;
+            });
 
         // Values
         HAL::GetCanvas()->setFont(&fonts::efontCN_16);
@@ -107,7 +109,6 @@ void line_chart_test()
         }
 
         chart.moveZoomTo(0.1, 1);
-        chart.moveOffsetTo(100, 120);
         time_count = HAL::Millis();
         while (1)
         {
@@ -129,7 +130,6 @@ void line_chart_test()
         }
 
         chart.moveZoomTo(1, 1);
-        chart.moveOffsetTo(0, 120);
         while (!chart.isFinish())
         {
             chart.update(HAL::Millis());
@@ -172,38 +172,66 @@ void line_chart_test2()
     // chart.getOffsetTransition().setTransitionPath(EasingPath::easeOutBack);
     // chart.getZoomTransition().setTransitionPath(EasingPath::easeOutBack);
 
-    // chart.moveOffsetTo(0, 120);
-    chart.moveZoomTo(1, 120);
-    chart.moveOffsetTo(0, 1);
+    // chart.moveZoomTo(1, 120);
+    // chart.moveOffsetTo(0, 1);
     // chart.moveZoomTo(1, 120);
 
     auto y_zoom = chart.getZoomByRange(-1, 1, chart.getConfig().size.height);
     spdlog::info("{}", y_zoom);
+    auto x_zoom = chart.getZoomByRange(0, 2048, chart.getConfig().size.width);
+    spdlog::info("{}", x_zoom);
 
     // chart.moveZoomTo(1, chart.getZoomByRange(-1, 1, chart.getConfig().size.height));
 
-    chart.moveYIntoRange(-1, 1);
+    // chart.moveOffsetTo(512, 1);
+    // chart.moveXOffsetTo(512);
+
+    // chart.moveZoomTo(x_zoom, y_zoom);
+
+    // chart.moveYIntoRange(-2, 2);
+    // chart.moveXIntoRange(0 - 512, 2048 - 512);
+    // chart.moveXIntoRange(0 - 512, 2048 - 512);
 
     while (1)
     {
         chart.update(HAL::Millis());
 
-        // auto time_count = HAL::Millis();
-        // while (1)
-        // {
-        //     chart.update(HAL::Millis());
-        //     if (HAL::Millis() - time_count > 2000)
-        //         break;
-        // }
+        chart.moveZoomTo(1, 1);
+        chart.moveOffsetTo(0, 0);
+        auto time_count = HAL::Millis();
+        while (1)
+        {
+            chart.update(HAL::Millis());
+            if (HAL::Millis() - time_count > 2000)
+                break;
+        }
 
-        // chart.moveZoomTo(1, 60);
-        // chart.moveOffsetTo(0, 1);
-        // time_count = HAL::Millis();
-        // while (1)
-        // {
-        //     chart.update(HAL::Millis());
-        //     if (HAL::Millis() - time_count > 2000)
-        //         break;
-        // }
+        chart.moveYIntoRange(-1, 1);
+        time_count = HAL::Millis();
+        while (1)
+        {
+            chart.update(HAL::Millis());
+            if (HAL::Millis() - time_count > 2000)
+                break;
+        }
+
+        chart.moveXIntoRange(0, 2048);
+        time_count = HAL::Millis();
+        while (1)
+        {
+            chart.update(HAL::Millis());
+            if (HAL::Millis() - time_count > 2000)
+                break;
+        }
+
+        chart.moveYIntoRange(-2, 2);
+        chart.moveXIntoRange(0 - 512, 2048 + 512);
+        time_count = HAL::Millis();
+        while (1)
+        {
+            chart.update(HAL::Millis());
+            if (HAL::Millis() - time_count > 2000)
+                break;
+        }
     }
 }
