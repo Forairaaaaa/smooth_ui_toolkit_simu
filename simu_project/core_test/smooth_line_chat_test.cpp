@@ -158,7 +158,7 @@ void line_chart_test2()
 {
     HAL::Delay(2000);
 
-    _point_list.allowOverwrite(true);
+    // _point_list.allowOverwrite(false);
     // for (float i = 0.0; i < 10; i += 0.01)
     // {
     //     _point_list.put({static_cast<int>(i * 100), static_cast<int>(std::sin(i) * 100)});
