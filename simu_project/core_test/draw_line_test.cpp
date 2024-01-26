@@ -10,6 +10,7 @@
  */
 #include "../hal/hal.h"
 #include "core/easing_path/easing_path.h"
+#include "core/math/math.h"
 #include "core/types/types.h"
 #include "lgfx/v1/lgfx_fonts.hpp"
 #include "lgfx/v1/misc/colortype.hpp"
@@ -266,6 +267,19 @@ void plotLineWidthFixedPoint(
     }
 }
 
+static void _plot_line_point(const int& x, const int& y, const int& t)
+{
+    // spdlog::info("{} {} {}", x, y, t);
+
+    // lgfx::rgb888_t color;
+    // color.r = t;
+    // color.g = t;
+    // color.b = t;
+    // HAL::GetCanvas()->drawPixel(x, y, color);
+
+    HAL::GetCanvas()->fillRectAlpha(x, y, 1, 1, 255 - t, TFT_RED);
+}
+
 void draw_line_test()
 {
     HAL::GetCanvas()->fillScreen(TFT_WHITE);
@@ -273,17 +287,12 @@ void draw_line_test()
     // plotLineWidth(100, 100, 200, 200, 1);
     // plotLineWidth(100, 100, 200, 200, 5);
 
-    plotLineWidthFixedPoint(100, 100, 6000, 200, 5, [](const int& x, const int& y, const int& t) {
-        spdlog::info("{} {} {}", x, y, t);
+    // plotLineWidthFixedPoint(100, 100, 600, 200, 5, _plot_line_point);
 
-        lgfx::rgb888_t color;
-        color.r = t;
-        color.g = t;
-        color.b = t;
+    SmoothUIToolKit::DrawLineAA(100, 100, 400, 500, _plot_line_point);
 
-        HAL::GetCanvas()->drawPixel(x, y, color);
-    });
-
+    SmoothUIToolKit::DrawLineAAWidth(300, 400, 1000, 200, 10, _plot_line_point);
+    SmoothUIToolKit::DrawLineAAWidth(500, 777, 22, 55, 3, _plot_line_point);
 
     HAL::GetCanvas()->drawLine(100, 100 + 200, 6000, 200 + 200, TFT_BLACK);
 
