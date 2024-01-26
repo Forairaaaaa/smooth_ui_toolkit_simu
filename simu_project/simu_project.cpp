@@ -55,7 +55,9 @@ void select_menu_smooth_selector_test();
 void ring_buffer_test();
 void line_chart_test();
 void line_chart_test2();
+
 void xiaolinwu_line_test();
+void draw_line_test();
 
 void smooth_widget_base_test();
 
@@ -76,10 +78,11 @@ void SIMU_PROJECT::Loop()
     // select_menu_smooth_option_test();
     // select_menu_smooth_selector_test();
 
-    ring_buffer_test();
+    // ring_buffer_test();
     // line_chart_test();
     // line_chart_test2();
     // xiaolinwu_line_test();
+    draw_line_test();
 
     // smooth_color_test();
 
