@@ -61,6 +61,14 @@ class SmoothLineChart_Test : public SmoothLineChart
             if (chart_x != 0)
             {
                 HAL::GetCanvas()->drawLine(last_p.x, last_p.y, cp.x, cp.y);
+
+                // DrawLineAA(last_p.x, last_p.y, cp.x, cp.y, [](const int& x, const int& y, const int& t) {
+                //     HAL::GetCanvas()->fillRectAlpha(x, y, 1, 1, 255 - t, TFT_YELLOW);
+                // });
+
+                // HAL::GetCanvas()->fillSmoothCircle(cp.x, cp.y, 2);
+
+                // HAL::GetCanvas()->drawBezier(last_p.x, last_p.y, cp.x, cp.y, last_p.x, cp.y);
             }
 
             last_p = cp;

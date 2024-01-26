@@ -300,8 +300,9 @@ void draw_line_test()
 
     for (float i = 0.0; i < 5.0; i += 0.01)
     {
-        // SmoothUIToolKit::DrawLineAA((i - 0.01) * 500, std::sin(i - 0.01) * 500, i * 500, std::sin(i) * 500, _plot_line_point);
-        SmoothUIToolKit::DrawLineAAWidth((i - 0.01) * 500, std::sin(i - 0.01) * 500, i * 500, std::sin(i) * 500, 5, _plot_line_point);
+        SmoothUIToolKit::DrawLineAA((i - 0.01) * 500, std::sin(i - 0.01) * 500, i * 500, std::sin(i) * 500, _plot_line_point);
+        // SmoothUIToolKit::DrawLineAAWidth(
+        //     (i - 0.01) * 500, std::sin(i - 0.01) * 500, i * 500, std::sin(i) * 500, 5, _plot_line_point);
     }
 
     HAL::CanvasUpdate();
