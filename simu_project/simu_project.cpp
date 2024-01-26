@@ -80,9 +80,9 @@ void SIMU_PROJECT::Loop()
 
     // ring_buffer_test();
     // line_chart_test();
-    // line_chart_test2();
+    line_chart_test2();
     // xiaolinwu_line_test();
-    draw_line_test();
+    // draw_line_test();
 
     // smooth_color_test();
 

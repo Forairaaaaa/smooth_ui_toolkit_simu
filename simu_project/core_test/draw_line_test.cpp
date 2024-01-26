@@ -289,12 +289,20 @@ void draw_line_test()
 
     // plotLineWidthFixedPoint(100, 100, 600, 200, 5, _plot_line_point);
 
-    SmoothUIToolKit::DrawLineAA(100, 100, 400, 500, _plot_line_point);
+    // SmoothUIToolKit::DrawLineAA(100, 100, 400, 500, _plot_line_point);
 
-    SmoothUIToolKit::DrawLineAAWidth(300, 400, 1000, 200, 10, _plot_line_point);
-    SmoothUIToolKit::DrawLineAAWidth(500, 777, 22, 55, 3, _plot_line_point);
+    // SmoothUIToolKit::DrawLineAAWidth(300, 400, 1000, 200, 10, _plot_line_point);
+    // SmoothUIToolKit::DrawLineAAWidth(500, 777, 22, 55, 3, _plot_line_point);
+
+    SmoothUIToolKit::DrawLineAA(100, 100, 101, 105, _plot_line_point);
 
     HAL::GetCanvas()->drawLine(100, 100 + 200, 6000, 200 + 200, TFT_BLACK);
+
+    for (float i = 0.0; i < 5.0; i += 0.01)
+    {
+        // SmoothUIToolKit::DrawLineAA((i - 0.01) * 500, std::sin(i - 0.01) * 500, i * 500, std::sin(i) * 500, _plot_line_point);
+        SmoothUIToolKit::DrawLineAAWidth((i - 0.01) * 500, std::sin(i - 0.01) * 500, i * 500, std::sin(i) * 500, 5, _plot_line_point);
+    }
 
     HAL::CanvasUpdate();
 

@@ -10,6 +10,7 @@
  */
 #include "../hal/hal.h"
 #include "core/easing_path/easing_path.h"
+#include "core/math/math.h"
 #include "core/types/types.h"
 #include "lgfx/v1/lgfx_fonts.hpp"
 #include "lgfx/v1/misc/colortype.hpp"
@@ -58,7 +59,9 @@ class SmoothLineChart_Test : public SmoothLineChart
 
             // HAL::GetCanvas()->fillCircle(cp.x, cp.y, 1);
             if (chart_x != 0)
+            {
                 HAL::GetCanvas()->drawLine(last_p.x, last_p.y, cp.x, cp.y);
+            }
 
             last_p = cp;
             chart_x++;
@@ -235,4 +238,3 @@ void line_chart_test2()
         }
     }
 }
-
