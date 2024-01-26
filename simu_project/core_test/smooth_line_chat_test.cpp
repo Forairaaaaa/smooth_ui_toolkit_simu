@@ -48,32 +48,49 @@ class SmoothLineChart_Test : public SmoothLineChart
         Vector2D_t last_p;
         int chart_x = 0;
         SmoothLineChart_Test* chat = this;
-        _point_list.peekAll([&chart_x, &last_p, chat](VectorFloat2D_t value) {
-            auto cp = chat->getChartPoint(chart_x, value.y);
-            // spdlog::info("{} {}", cp.x, cp.y);
-
-            if (chat->isInChart(cp.x, cp.y))
-                HAL::GetCanvas()->setColor(TFT_YELLOW);
-            else
-                HAL::GetCanvas()->setColor(TFT_LIGHTGRAY);
-
-            // HAL::GetCanvas()->fillCircle(cp.x, cp.y, 1);
-            if (chart_x != 0)
+        _point_list.peekAll(
+            [&chart_x, &last_p, chat](VectorFloat2D_t value)
             {
-                HAL::GetCanvas()->drawLine(last_p.x, last_p.y, cp.x, cp.y);
+                auto cp = chat->getChartPoint(chart_x, value.y);
+                // spdlog::info("{} {}", cp.x, cp.y);
 
-                // DrawLineAA(last_p.x, last_p.y, cp.x, cp.y, [](const int& x, const int& y, const int& t) {
-                //     HAL::GetCanvas()->fillRectAlpha(x, y, 1, 1, 255 - t, TFT_YELLOW);
-                // });
+                if (chat->isInChart(cp.x, cp.y))
+                    HAL::GetCanvas()->setColor(TFT_YELLOW);
+                else
+                    HAL::GetCanvas()->setColor(TFT_LIGHTGRAY);
 
-                // HAL::GetCanvas()->fillSmoothCircle(cp.x, cp.y, 2);
+                // HAL::GetCanvas()->fillCircle(cp.x, cp.y, 1);
+                if (chart_x != 0)
+                {
+                    HAL::GetCanvas()->drawLine(last_p.x, last_p.y, cp.x, cp.y);
 
-                // HAL::GetCanvas()->drawBezier(last_p.x, last_p.y, cp.x, cp.y, last_p.x, cp.y);
-            }
+                    // // Fake width
+                    // for (int i = 0; i < 5; i++)
+                    // {
+                    //     HAL::GetCanvas()->drawLine(last_p.x + i, last_p.y, cp.x + i, cp.y);
+                    //     HAL::GetCanvas()->drawLine(last_p.x, last_p.y + i, cp.x, cp.y + i);
+                    // }
 
-            last_p = cp;
-            chart_x++;
-        });
+                    // DrawLineAA(last_p.x, last_p.y, cp.x, cp.y, [](const int& x, const int& y, const int& t) {
+                    //     HAL::GetCanvas()->fillRectAlpha(x, y, 1, 1, 255 - t, TFT_YELLOW);
+                    // });
+
+                    // DrawLineAAWidth(last_p.x,
+                    //                 last_p.y,
+                    //                 cp.x,
+                    //                 cp.y,
+                    //                 5,
+                    //                 [](const int& x, const int& y, const int& t)
+                    //                 { HAL::GetCanvas()->fillRectAlpha(x, y, 1, 1, 255 - t, TFT_YELLOW); });
+
+                    // HAL::GetCanvas()->fillSmoothCircle(cp.x, cp.y, 2);
+
+                    // HAL::GetCanvas()->drawBezier(last_p.x, last_p.y, cp.x, cp.y, last_p.x, cp.y);
+                }
+
+                last_p = cp;
+                chart_x++;
+            });
 
         // Values
         HAL::GetCanvas()->setFont(&fonts::efontCN_16);
