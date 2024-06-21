@@ -10,6 +10,7 @@
  */
 #pragma once
 #include "app_template/app_template.h"
+#include "app_easing_path_simple_test/app_easing_path_simple_test.h"
 /* Header files locator (Don't remove) */
 
 /**
@@ -41,9 +42,9 @@ inline void app_run_startup_anim(MOONCAKE::Mooncake* mooncake)
 inline void app_install_default_startup_app(MOONCAKE::Mooncake* mooncake)
 {
     // Launcher maybe
-    // auto launcher = new MOONCAKE::APPS::AppLauncher_Packer;
-    // mooncake->installApp(launcher);
-    // mooncake->createApp(launcher);
+    auto default_shit = new MOONCAKE::APPS::AppEasingPathSimpleTest_Packer;
+    mooncake->installApp(default_shit);
+    mooncake->createAndStartApp(default_shit);
 }
 
 /**
@@ -54,5 +55,6 @@ inline void app_install_default_startup_app(MOONCAKE::Mooncake* mooncake)
 inline void app_install_apps(MOONCAKE::Mooncake* mooncake)
 {
     mooncake->installApp(new MOONCAKE::APPS::AppTemplate_Packer);
+    mooncake->installApp(new MOONCAKE::APPS::AppEasingPathSimpleTest_Packer);
     /* Install app locator (Don't remove) */
 }

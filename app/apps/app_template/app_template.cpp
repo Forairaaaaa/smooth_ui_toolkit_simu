@@ -12,9 +12,11 @@
 #include "../../hal/hal.h"
 #include "../../assets/assets.h"
 #include "../utils/system/system.h"
+#include <smooth_ui_toolkit.h>
 
 using namespace MOONCAKE::APPS;
 using namespace SYSTEM::INPUTS;
+using namespace SmoothUIToolKit;
 
 void AppTemplate::onResume() { spdlog::info("{} onResume", getAppName()); }
 
