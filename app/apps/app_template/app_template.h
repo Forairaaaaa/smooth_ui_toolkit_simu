@@ -36,11 +36,9 @@ namespace MOONCAKE
 
         class AppTemplate_Packer : public APP_PACKER_BASE
         {
-            const char* getAppName() override;
-            void* getAppIcon() override;
+            const char* getAppName() override { return "AppTemplate"; }
             void* newApp() override { return new AppTemplate; }
             void deleteApp(void* app) override { delete (AppTemplate*)app; }
-            void* getCustomData() override;
         };
     } // namespace APPS
 } // namespace MOONCAKE
