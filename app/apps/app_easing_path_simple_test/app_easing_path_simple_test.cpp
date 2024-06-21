@@ -18,8 +18,6 @@ using namespace MOONCAKE::APPS;
 using namespace SYSTEM::INPUTS;
 using namespace SmoothUIToolKit;
 
-void AppEasingPathSimpleTest::onResume() { spdlog::info("{} onResume", getAppName()); }
-
 // Mirro the y direction
 static int _mirro_y(int y) { return HAL::GetCanvas()->height() - y; }
 
@@ -209,6 +207,8 @@ void easing_path_play_with_transition()
         HAL::CanvasUpdate();
     }
 }
+
+void AppEasingPathSimpleTest::onResume() { spdlog::info("{} onResume", getAppName()); }
 
 void AppEasingPathSimpleTest::onRunning()
 {
