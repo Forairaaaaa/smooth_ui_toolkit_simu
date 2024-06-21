@@ -1,32 +1,62 @@
-# LGFX_Simulator_SDL
-PC simulator project for LovyanGFX on linux with SDL
-## Usage
+# app_boilerplate
+Cpp cross-platform application boilerplate for embedded
 
-### Get the PC project
+### 文件树
 
-Clone the PC project and the related sub modules:
-
+```sh
+.
+├── app                           # [App 层]
+│   ├── apps                        # [Mooncake Apps层]
+│   │   ├── app_template              # Mooncake App 模板
+│   │   └── utils
+│   │       └── system                # 系统通用组件
+│   │           ├── inputs              # 输入组件
+│   │           └── ui                  # UI 组件
+│   ├── assets                      # 资产池抽象
+│   │   ├── fonts                     # 字体
+│   │   ├── images                    # 图片
+│   │   ├── localization              # 本地化
+│   │   └── theme                     # 主题(颜色)
+│   ├── hal                         # 硬件层抽象
+|   └── shared                      # 全局共享数据抽象
+└── platforms                     # [平台构建层]
+    ├── desktop                     # 桌面
+    └── esp32s3                     # 单片机
+    ...
 ```
-git clone --recursive https://github.com/Forairaaaaa/LGFX_Simulator_SDL.git
+
+## 编译
+
+### 下载依赖
+
+```bash
+python ./fetch_repos.py
 ```
 
-### Install SDL
-You can download SDL from https://www.libsdl.org/
+### 桌面端
 
-On on Linux you can install it via terminal:
+#### 工具链
+
+```bash
+sudo apt install build-essential cmake
 ```
-sudo apt-get update && sudo apt-get install -y build-essential libsdl2-dev
+
+#### 编译
+
+```bash
+mkdir build && cd build
+```
+```bash
+cmake .. && make
+```
+#### 运行
+
+```bash
+cd desktop
 ```
 
-## CMake
+要先 cd 过去，因为序列化时用的相对路径 :(
 
-The following steps can be used with CMake on a Unix-like system. This may also work on other OSes but has not been tested.
-
-1. Ensure CMake is installed, i.e. the `cmake` command works on the terminal.
-2. Make a new directory. The name doesn't matter but `build` will be used for this tutorial.
-3. Type `cd build`.
-4. Type `cmake ..`. CMake will generate the appropriate build files.
-5. Type `make ` 
-
-6. The binary will be in `./Play`, and can be run by typing that command.
-
+```bash
+./app_desktop_build
+```
